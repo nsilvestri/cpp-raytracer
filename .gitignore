@@ -1,0 +1,6 @@
+build/
+.vscode/
+*.o
+test/tests
+*.code-workspace
+data/*
