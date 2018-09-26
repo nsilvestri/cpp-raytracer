@@ -14,7 +14,7 @@
 #include <stdexcept>
 
 #include "PPMImage.hpp"
-#include "RGBPixel.hpp"
+#include "RGBColor.hpp"
 
 /**
  * Constructor for PPMImage.
@@ -66,7 +66,7 @@ PPMImage::PPMImage(std::string filepath)
 	this->data = new unsigned char[this->cols * this->rows * 3];
     std::string rawData = "";
 
-	this->pixels = new RGBPixel[this->rows * this->cols];
+	this->pixels = new RGBColor[this->rows * this->cols];
 
 	unsigned char ch;
 	for (int i = 0; i < this->rows * this->cols; i++)
@@ -77,25 +77,25 @@ PPMImage::PPMImage(std::string filepath)
 		unsigned char g = ch;
 		infile >> std::noskipws >> ch;
 		unsigned char b = ch;
-		RGBPixel* p = new RGBPixel(r / 255.0, g / 255.0, b / 255.0);
+		RGBColor* p = new RGBColor(r / 255.0, g / 255.0, b / 255.0);
 		pixels[i] = *p;
 	}
 	this->regenerateData();
 }
 
-PPMImage::PPMImage(RGBPixel** pixArray, int rows, int cols)
+PPMImage::PPMImage(RGBColor** pixArray, int rows, int cols)
 {
 	this->rows = rows;
 	this->cols = cols;
 	this->maxValue = 255;
 	
-	this->pixels = new RGBPixel[this->rows * this->cols];
+	this->pixels = new RGBColor[this->rows * this->cols];
 	for (int i = 0; i < this->rows * this->cols; i++)
 	{
 		float r = pixArray[i]->getR();
 		float g = pixArray[i]->getG();
 		float b = pixArray[i]->getB();
-		RGBPixel* p = new RGBPixel(r, g, b);
+		RGBColor* p = new RGBColor(r, g, b);
 		pixels[i] = *p;
 	}
 	this->regenerateData();
@@ -131,7 +131,7 @@ void PPMImage::rescale(float gain, float bias, float gamma)
 
 /**
  * Private helper method that is called after the image is rescaled.
- * Recalculates the data buffer according to the array of RGBPixels.
+ * Recalculates the data buffer according to the array of RGBColors.
  */
 void PPMImage::regenerateData()
 {
@@ -191,7 +191,7 @@ int PPMImage::getMaxValue() {
 	return this->maxValue;
 }
 
-RGBPixel* PPMImage::getPixelAt(int row, int col)
+RGBColor* PPMImage::getPixelAt(int row, int col)
 {
 	return &(this->pixels[row * this->getCols() + col]);
 }
@@ -245,8 +245,8 @@ void PPMImage::resize(float scale, std::string filepath)
 	//create an output image scaled k times
 	int newWidth = this->cols * scale;
 	int newHeight = this->rows * scale;
-	RGBPixel** newPixels =
-				new RGBPixel*[newHeight * newWidth];
+	RGBColor** newPixels =
+				new RGBColor*[newHeight * newWidth];
 
 	// use nearest neighbor to resize
 	for (int row = 0; row < newHeight; row++)
@@ -256,9 +256,9 @@ void PPMImage::resize(float scale, std::string filepath)
 			int x = (int)(col * this->cols / (float) newWidth);
 			int y = (int)(row * this->rows / (float) newHeight);
 
-			RGBPixel* p = this->getPixelAt(y, x);
+			RGBColor* p = this->getPixelAt(y, x);
 
-			RGBPixel* newP = new RGBPixel(p->getR(), p->getG(), p->getB());
+			RGBColor* newP = new RGBColor(p->getR(), p->getG(), p->getB());
 
 			newPixels[row * newWidth + col] = newP;
 		}
@@ -312,7 +312,7 @@ void PPMImage::convolve(int** kernel, int kernelRows, int kernelCols)
 					}
 
 					// get the pixel relative to the center of the kernel
-					RGBPixel* p = this->getPixelAt(pixelRow, pixelCol);
+					RGBColor* p = this->getPixelAt(pixelRow, pixelCol);
 
 					int kVal = kernel[kernelR][kernelC];
 					kSum += kVal;

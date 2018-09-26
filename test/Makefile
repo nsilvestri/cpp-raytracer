@@ -1,9 +1,9 @@
 CC=g++
 CFLAGS=-std=c++11
-TEST_FILES=tests-RGBPixel.cpp tests-PPMImage.cpp
-IMP_FILES=../RGBPixel.cpp ../PPMImage.cpp
+TEST_FILES=tests-RGBColor.cpp tests-PPMImage.cpp
+IMP_FILES=../RGBColor.cpp ../PPMImage.cpp
 
-tests: tests-main.o tests-RGBPixel.cpp ../RGBPixel.cpp
+tests: tests-main.o tests-RGBColor.cpp ../RGBColor.cpp
 	$(CC) $(CFLAGS) -o tests tests-main.o $(TEST_FILES) $(IMP_FILES)
 
 tests-main.o: tests-main.cpp

@@ -1,10 +1,10 @@
 #include "catch.hpp"
 
-#include "../RGBPixel.hpp"
+#include "../RGBColor.hpp"
 
-TEST_CASE("Compute pixel luminance", "[RGBPixel]")
+TEST_CASE("Compute pixel luminance", "[RGBColor]")
 {
-    RGBPixel* p = new RGBPixel(0, 0, 0);
+    RGBColor* p = new RGBColor(0, 0, 0);
 
     REQUIRE(p->getLuminance() == 0);
 
@@ -13,9 +13,9 @@ TEST_CASE("Compute pixel luminance", "[RGBPixel]")
     REQUIRE(p->getLuminance() == 1);
 }
 
-TEST_CASE("Scale pixel", "[RGBPixel]")
+TEST_CASE("Scale pixel", "[RGBColor]")
 {
-    RGBPixel* p = new RGBPixel(0, 0, 0);
+    RGBColor* p = new RGBColor(0, 0, 0);
 
     p->scale(0);
     REQUIRE(p->getR() == 0);
@@ -51,17 +51,17 @@ TEST_CASE("Scale pixel", "[RGBPixel]")
     REQUIRE(p->getB() == 0);
 }
 
-TEST_CASE("Test channel getters", "[RGBPixel]")
+TEST_CASE("Test channel getters", "[RGBColor]")
 {
-    RGBPixel* p = new RGBPixel(0, .5, 1);
+    RGBColor* p = new RGBColor(0, .5, 1);
     REQUIRE(p->getR() == 0);
     REQUIRE(p->getG() == .5);
     REQUIRE(p->getB() == 1);
 }
 
-TEST_CASE("Test setters", "[RGBPixel]")
+TEST_CASE("Test setters", "[RGBColor]")
 {
-    RGBPixel* p = new RGBPixel(0, .5, 1);
+    RGBColor* p = new RGBColor(0, .5, 1);
     
     p->setR(1);
     p->setG(0);
@@ -76,12 +76,12 @@ TEST_CASE("Test setters", "[RGBPixel]")
     REQUIRE(p->getB() == 1);
 }
 
-TEST_CASE("Test clamping", "[RGBPixel]")
+TEST_CASE("Test clamping", "[RGBColor]")
 {
-    REQUIRE(RGBPixel::clamp(.5) == .5);
-    REQUIRE(RGBPixel::clamp(0) == 0);
-    REQUIRE(RGBPixel::clamp(1) == 1);
+    REQUIRE(RGBColor::clamp(.5) == .5);
+    REQUIRE(RGBColor::clamp(0) == 0);
+    REQUIRE(RGBColor::clamp(1) == 1);
 
-    REQUIRE(RGBPixel::clamp(-1) == 0);
-    REQUIRE(RGBPixel::clamp(2) == 1);
+    REQUIRE(RGBColor::clamp(-1) == 0);
+    REQUIRE(RGBColor::clamp(2) == 1);
 }

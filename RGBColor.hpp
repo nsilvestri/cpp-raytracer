@@ -1,15 +1,15 @@
 #pragma once
 
-class RGBPixel
+class RGBColor
 {
     private:
         float r;
         float g;
         float b;
     public:
-        RGBPixel(float r, float g, float b);
-        RGBPixel();
-        ~RGBPixel();
+        RGBColor(float r, float g, float b);
+        RGBColor();
+        ~RGBColor();
         float getLuminance();
         void scale(float scale);
         float getR();

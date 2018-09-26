@@ -2,12 +2,12 @@
 
 #include <string>
 
-#include "RGBPixel.hpp"
+#include "RGBColor.hpp"
 
 class PPMImage
 {
     private:
-        RGBPixel* pixels;
+        RGBColor* pixels;
         unsigned char* data;
         std::string filepath;
         int rows;
@@ -16,7 +16,7 @@ class PPMImage
         void regenerateData();
     public:
         PPMImage(std::string filepath);
-        PPMImage(RGBPixel** pixels, int width, int height);
+        PPMImage(RGBColor** pixels, int width, int height);
         ~PPMImage();
         void rescale(float gain, float bias, float gamma);
         unsigned char* getData();
@@ -24,7 +24,7 @@ class PPMImage
         int getRows();
         int getCols();
         int getMaxValue();
-        RGBPixel* getPixelAt(int row, int col);
+        RGBColor* getPixelAt(int row, int col);
         void write(std::string filepath);
         void resize(float scale, std::string filepath);
         void convolve(int** kernel, int rows, int cols);

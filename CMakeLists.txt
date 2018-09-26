@@ -8,7 +8,7 @@ find_package(SDL2)
 set(source_files
   main.cpp
   PPMImage.cpp
-  RGBPixel.cpp
+  RGBColor.cpp
 )
 
 include_directories (${SDL2_INCLUDE_DIR})
