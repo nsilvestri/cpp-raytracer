@@ -61,13 +61,17 @@ PPMImage::PPMImage(std::string filepath)
 	while (line.at(0) == '#');
 	this->maxValue = atoi(line.c_str());
 
+	/* this->pixels is a 2D array of pointers to locations within
+	 * the single block of memory created by pixels1d */
+	this->pixels = new RGBColor*[this->rows];
+	RGBColor* pixels1d = new RGBColor[this->rows * this->cols];
+	this->pixels[0] = pixels1d;
+	for (int y = 1; y < this->rows; y++)
+	{
+		this->pixels[y] = pixels[y - 1] + this->cols;
+	}
+
     /* get image data from file */
-    //A raw data array of chars.
-	this->data = new unsigned char[this->cols * this->rows * 3];
-    std::string rawData = "";
-
-	this->pixels = new RGBColor[this->rows * this->cols];
-
 	unsigned char ch;
 	for (int i = 0; i < this->rows * this->cols; i++)
 	{
@@ -78,7 +82,7 @@ PPMImage::PPMImage(std::string filepath)
 		infile >> std::noskipws >> ch;
 		unsigned char b = ch;
 		RGBColor* p = new RGBColor(r / 255.0, g / 255.0, b / 255.0);
-		pixels[i] = *p;
+		pixels1d[i] = *p;
 	}
 	this->regenerateData();
 }
@@ -89,15 +93,7 @@ PPMImage::PPMImage(RGBColor** pixArray, int rows, int cols)
 	this->cols = cols;
 	this->maxValue = 255;
 	
-	this->pixels = new RGBColor[this->rows * this->cols];
-	for (int i = 0; i < this->rows * this->cols; i++)
-	{
-		float r = pixArray[i]->getR();
-		float g = pixArray[i]->getG();
-		float b = pixArray[i]->getB();
-		RGBColor* p = new RGBColor(r, g, b);
-		pixels[i] = *p;
-	}
+	this->pixels = pixArray;
 	this->regenerateData();
 }
 
@@ -119,12 +115,16 @@ PPMImage::~PPMImage()
  */ 
 void PPMImage::rescale(float gain, float bias, float gamma)
 {
-	for (int i = 0; i < this->rows * this->cols; i++)
+	for (int r = 0; r < this->rows; r++)
 	{
-		float pixelLuminance = pixels[i].getLuminance();
-		float newLuminance = std::pow(((gain * pixelLuminance) + bias), gamma);
-		float scale = newLuminance / pixelLuminance;
-		pixels[i].scale(scale);
+		for (int c = 0; c < this->cols; c++)
+		{
+			float pixelLuminance = this->getPixelAt(r, c)->getLuminance();
+			float newLuminance = std::pow(((gain * pixelLuminance) + bias), gamma);
+			float scale = newLuminance / pixelLuminance;
+			this->getPixelAt(r, c)->scale(scale);
+
+		}
 	}
 	this->regenerateData();
 }
@@ -137,11 +137,15 @@ void PPMImage::regenerateData()
 {
 	this->data = new unsigned char[this->cols * this->rows * 3];
     std::string newData = "";
-	for (int i = 0; i < this->rows * this->cols; i++)
+	for (int r = 0; r < this->rows; r++)
 	{
-		newData += (unsigned char)(pixels[i].getR() * 255);
-		newData += (unsigned char)(pixels[i].getG() * 255);
-		newData += (unsigned char)(pixels[i].getB() * 255);
+		for (int c = 0; c < this->cols; c++)
+		{
+			RGBColor* p = this->getPixelAt(r, c);
+			newData += (unsigned char)(p->getR() * 255);
+			newData += (unsigned char)(p->getG() * 255);
+			newData += (unsigned char)(p->getB() * 255);
+		}
 	}
 	memcpy(this->data, newData.c_str(), newData.length());
 }
@@ -193,7 +197,7 @@ int PPMImage::getMaxValue() {
 
 RGBColor* PPMImage::getPixelAt(int row, int col)
 {
-	return &(this->pixels[row * this->getCols() + col]);
+	return &(this->pixels[row][col]);
 }
 
 /**

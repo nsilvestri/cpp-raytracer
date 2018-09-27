@@ -7,7 +7,7 @@
 class PPMImage
 {
     private:
-        RGBColor* pixels;
+        RGBColor** pixels;
         unsigned char* data;
         std::string filepath;
         int rows;
