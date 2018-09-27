@@ -9,6 +9,7 @@ set(source_files
   main.cpp
   PPMImage.cpp
   RGBColor.cpp
+  Vector3D.cpp
 )
 
 include_directories (${SDL2_INCLUDE_DIR})

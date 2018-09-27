@@ -1,12 +1,19 @@
 CC=g++
 CFLAGS=-std=c++11
-TEST_FILES=tests-RGBColor.cpp tests-PPMImage.cpp
-IMP_FILES=../RGBColor.cpp ../PPMImage.cpp
+O_FILES=tests-main.o tests-RGBColor.o tests-PPMImage.o tests-Vector3D.o
+CPP_FILES=../RGBColor.cpp ../PPMImage.cpp ../Vector3D.cpp
 
-tests: tests-main.o tests-RGBColor.cpp tests-PPMImage.cpp ../RGBColor.cpp ../PPMImage.cpp
-	$(CC) $(CFLAGS) -o tests tests-main.o $(TEST_FILES) $(IMP_FILES)
+tests: $(O_FILES) $(CPP_FILES)
+	$(CC) $(CFLAGS) -o tests $(O_FILES) $(CPP_FILES)
 
 tests-main.o: tests-main.cpp
 	$(CC) $(CFLAGS) -c tests-main.cpp
 
- 
+tests-RGBColor.o: tests-RGBColor.cpp
+	$(CC) $(CFLAGS) -c tests-RGBColor.cpp
+
+tests-PPMImage.o: tests-PPMImage.cpp
+	$(CC) $(CFLAGS) -c tests-PPMImage.cpp
+
+tests-Vector3D.o: tests-Vector3D.cpp
+	$(CC) $(CFLAGS) -c tests-Vector3D.cpp
