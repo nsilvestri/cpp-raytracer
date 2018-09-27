@@ -87,13 +87,27 @@ PPMImage::PPMImage(std::string filepath)
 	this->regenerateData();
 }
 
-PPMImage::PPMImage(RGBColor** pixArray, int rows, int cols)
+PPMImage::PPMImage(RGBColor* pixArray, int rows, int cols)
 {
 	this->rows = rows;
 	this->cols = cols;
 	this->maxValue = 255;
 	
-	this->pixels = pixArray;
+	this->pixels = new RGBColor*[this->rows];
+	RGBColor* pixels1d = new RGBColor[this->rows * this->cols];
+	this->pixels[0] = pixels1d;
+	for (int y = 1; y < this->rows; y++)
+	{
+		this->pixels[y] = pixels[y - 1] + this->cols;
+	}
+	
+	for (int r = 0; r < rows; r++)
+	{
+		for (int c = 0; c < cols; c++)
+		{
+			this->pixels[r][c] = pixArray[r * cols + c];
+		}
+	}
 	this->regenerateData();
 }
 
@@ -122,8 +136,15 @@ void PPMImage::rescale(float gain, float bias, float gamma)
 			float pixelLuminance = this->getPixelAt(r, c)->getLuminance();
 			float newLuminance = std::pow(((gain * pixelLuminance) + bias), gamma);
 			float scale = newLuminance / pixelLuminance;
+			if (r == 0 && c == 0)
+			{
+				std::cout << this->getPixelAt(r, c)->getLuminance() << std::endl;
+			}
 			this->getPixelAt(r, c)->scale(scale);
-
+			if (r == 0 && c == 0)
+			{
+				std::cout << this->getPixelAt(r, c)->getLuminance() << std::endl;
+			}
 		}
 	}
 	this->regenerateData();
@@ -195,6 +216,12 @@ int PPMImage::getMaxValue() {
 	return this->maxValue;
 }
 
+/**
+ * Returns a pointer to the RGBColor object at the given indices in the image.
+ *
+ * @param row the row of the requested pixel
+ * @parram col the column of the requested pixel
+ */
 RGBColor* PPMImage::getPixelAt(int row, int col)
 {
 	return &(this->pixels[row][col]);
@@ -213,70 +240,6 @@ void PPMImage::write(std::string filepath)
 	outputFile << this->maxValue << std::endl;
 	outputFile.write((const char*) this->data, this->cols * this->rows * 3);
 	outputFile.close();
-}
-
-void PPMImage::resize(float scale, std::string filepath)
-{
-	// just write the current image to file if the scale is 1
-	if (scale == 1.0)
-	{
-		this->write(filepath);
-		return;
-	}
-
-	// initialize a 3x3 Guassian kernel
-	int** kernel = new int*[3];
-	for (int i = 0; i < 3; i++)
-	{
-		kernel[i] = new int[3];
-	}
-	kernel[0][0] = 1;
-	kernel[0][1] = 2;
-	kernel[0][2] = 1;
-	kernel[1][0] = 2;
-	kernel[1][1] = 4;
-	kernel[1][2] = 2;
-	kernel[2][0] = 1;
-	kernel[2][1] = 2;
-	kernel[2][2] = 1;
-
-	// if the output image is smaller, convolve the source
-	if (scale < 1.0)
-	{
-		this->convolve(kernel, 3, 3);
-	}
-
-	//create an output image scaled k times
-	int newWidth = this->cols * scale;
-	int newHeight = this->rows * scale;
-	RGBColor** newPixels =
-				new RGBColor*[newHeight * newWidth];
-
-	// use nearest neighbor to resize
-	for (int row = 0; row < newHeight; row++)
-	{
-		for (int col = 0; col < newWidth; col++)
-		{
-			int x = (int)(col * this->cols / (float) newWidth);
-			int y = (int)(row * this->rows / (float) newHeight);
-
-			RGBColor* p = this->getPixelAt(y, x);
-
-			RGBColor* newP = new RGBColor(p->getR(), p->getG(), p->getB());
-
-			newPixels[row * newWidth + col] = newP;
-		}
-	}
-	PPMImage* newImage = new PPMImage(newPixels, newHeight, newWidth);
-
-	// if the output image is larger, convolve the output
-	if (scale > 1.0)
-	{
-		newImage->convolve(kernel, 3, 3);
-	}
-
-	newImage->write(filepath);
-	std::cout << "Wrote file to " << filepath << std::endl;
 }
 
 void PPMImage::convolve(int** kernel, int kernelRows, int kernelCols)

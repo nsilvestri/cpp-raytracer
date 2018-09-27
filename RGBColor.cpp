@@ -33,6 +33,16 @@ RGBColor::RGBColor()
 }
 
 /**
+ * Copy constructor for RGBColor.
+ */
+RGBColor::RGBColor(const RGBColor& obj)
+{
+    this->r = obj.getR();
+    this->g = obj.getG();
+    this->b = obj.getB();
+}
+
+/**
  * Destructor for RGBColor.
  * Doesn't actually do anything.
  */
@@ -46,9 +56,9 @@ RGBColor::~RGBColor()
  * to 1.
  * The luminance equation used is (20R + 40G + B) / 61
  */ 
-float RGBColor::getLuminance()
+float RGBColor::getLuminance() const
 {
-    return ((20 * r) + (40 * g) + (b)) / 61.0;
+    return ((20 * this->getR()) + (40 * this->getG()) + (this->getB())) / 61.0;
 }
 
 /**
@@ -86,7 +96,7 @@ float RGBColor::clamp(float f)
  * Return the R value of this pixel.
  * @return the R value of this pixel.
  */
-float RGBColor::getR()
+float RGBColor::getR() const
 {
     return this->r;
 }
@@ -95,7 +105,7 @@ float RGBColor::getR()
  * Return the G value of this pixel.
  * @return the G value of this pixel.
  */
-float RGBColor::getG()
+float RGBColor::getG() const
 {
     return this->g;
 }
@@ -104,7 +114,7 @@ float RGBColor::getG()
  * Return the B value of this pixel.
  * @return the B value of this pixel.
  */
-float RGBColor::getB()
+float RGBColor::getB() const
 {
     return this->b;
 }

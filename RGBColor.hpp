@@ -9,12 +9,13 @@ class RGBColor
     public:
         RGBColor(float r, float g, float b);
         RGBColor();
+        RGBColor(const RGBColor& obj);
         ~RGBColor();
-        float getLuminance();
+        float getLuminance() const;
         void scale(float scale);
-        float getR();
-        float getG();
-        float getB();
+        float getR() const;
+        float getG() const;
+        float getB() const;
         void setR(float r);
         void setG(float g);
         void setB(float b);

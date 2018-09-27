@@ -16,7 +16,7 @@ class PPMImage
         void regenerateData();
     public:
         PPMImage(std::string filepath);
-        PPMImage(RGBColor** pixels, int width, int height);
+        PPMImage(RGBColor* pixels, int width, int height);
         ~PPMImage();
         void rescale(float gain, float bias, float gamma);
         unsigned char* getData();
@@ -26,7 +26,6 @@ class PPMImage
         int getMaxValue();
         RGBColor* getPixelAt(int row, int col);
         void write(std::string filepath);
-        void resize(float scale, std::string filepath);
         void convolve(int** kernel, int rows, int cols);
 };
 

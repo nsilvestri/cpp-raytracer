@@ -183,28 +183,32 @@ int main(int argc, char **argv)
 				switch (event.key.keysym.sym)
 				{
 					case SDLK_q:
+						std::cout << "Q pressed" << std::endl;
 						gain += .05;
 						break;
 					case SDLK_a:
+						std::cout << "A pressed" << std::endl;
 						gain -= .05;
 						break;
 					case SDLK_w:
+						std::cout << "W pressed" << std::endl;
 						bias += .05;
 						break;
 					case SDLK_s:
+						std::cout << "S pressed" << std::endl;
 						bias -= .05;
 						break;
 					case SDLK_e:
+						std::cout << "E pressed" << std::endl;
 						gamma += .05;
 						break;
 					case SDLK_d:
+						std::cout << "D pressed" << std::endl;
 						gamma -= .05;
 						break;
 					case SDLK_c:
+						std::cout << "C pressed" << std::endl;
 						image->convolve(kernel, 3, 3);
-						break;
-					case SDLK_r:
-						image->resize(scale, outputFile);
 						break;
 					case SDLK_RETURN:
 						image->write(outputFile);
