@@ -43,15 +43,6 @@ RGBColor::RGBColor(const RGBColor& obj)
 }
 
 /**
- * Destructor for RGBColor.
- * Doesn't actually do anything.
- */
-RGBColor::~RGBColor()
-{
-    // wowie
-}
-
-/**
  * Returns a float representing the brightness of the pixel, in the range of 0
  * to 1.
  * The luminance equation used is (20R + 40G + B) / 61
