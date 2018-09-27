@@ -5,6 +5,7 @@
  * @date 2018-09-20
  */
 
+#include <sstream>
 #include <stdexcept>
 #include <string>
 #include "RGBColor.hpp"
