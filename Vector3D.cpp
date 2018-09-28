@@ -61,6 +61,22 @@ Vector3D Vector3D::operator=(const Vector3D& rhs) {
   return *this;
 }
 
+Vector3D Vector3D::operator+(const Vector3D& rhs)
+{
+    Vector3D newVec(*this);
+    newVec.setX(newVec.getX() + rhs.getX());
+    newVec.setY(newVec.getY() + rhs.getY());
+    newVec.setZ(newVec.getZ() + rhs.getZ());
+
+    return newVec;
+}
+
+/**
+ * Scale the vector by the given scalar.
+ * 
+ * @param scalar the value to scale the vector by
+ * @return a new vector equal to the original vector scaled by the scalar
+ */
 Vector3D Vector3D::operator*(float scalar)
 {
     Vector3D newVec(*this);
@@ -71,12 +87,9 @@ Vector3D Vector3D::operator*(float scalar)
     return newVec;
 }
 
-Vector3D Vector3D::operator+(const Vector3D& rhs)
+float Vector3D::dot(Vector3D other)
 {
-    Vector3D newVec(*this);
-    newVec.setX(newVec.getX() + rhs.getX());
-    newVec.setY(newVec.getY() + rhs.getY());
-    newVec.setZ(newVec.getZ() + rhs.getZ());
-
-    return newVec;
+    return this->getX() * other.getX() 
+                + this->getY() * other.getY() 
+                + this->getZ() * other.getZ();
 }

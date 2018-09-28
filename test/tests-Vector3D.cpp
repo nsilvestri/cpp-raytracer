@@ -32,6 +32,11 @@ TEST_CASE("Dot two vectors", "[Vector3D]")
     Vector3D v1(1, 2, 3);
     Vector3D v2(1, 3, 5);
 
-    float d = v1.dot(v2);
-    REQUIRE(d == 22);
+    REQUIRE(v1.dot(v2) == 22);
+}
+
+TEST_CASE("Cross product of two vectors", "[Vector3D]")
+{
+    Vector3D v1(1, 2, 3);
+    Vector3D v2(1, 3, 5);
 }
