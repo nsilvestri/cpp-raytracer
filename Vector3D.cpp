@@ -36,6 +36,21 @@ float Vector3D::getZ() const
     return this->z;
 }
 
+void Vector3D::setX(float x)
+{
+    this->x = x;
+}
+
+void Vector3D::setY(float y)
+{
+    this->y = y;
+}
+
+void Vector3D::setZ(float z)
+{
+    this->z = z;
+}
+
 //return *this is a typical assignment operator syntax, so that you can
 //chain multiple assignments, e.g. a = b = c
 Vector3D Vector3D::operator=(const Vector3D& rhs) {
@@ -49,9 +64,19 @@ Vector3D Vector3D::operator=(const Vector3D& rhs) {
 Vector3D Vector3D::operator*(float scalar)
 {
     Vector3D newVec(*this);
-    newVec.setX(this->getX() * scalar);
-    newVec.setY(this->getY() * scalar);
-    newVec.setZ(this->getZ() * scalar);
+    newVec.setX(newVec.getX() * scalar);
+    newVec.setY(newVec.getY() * scalar);
+    newVec.setZ(newVec.getZ() * scalar);
+
+    return newVec;
+}
+
+Vector3D Vector3D::operator+(const Vector3D& rhs)
+{
+    Vector3D newVec(*this);
+    newVec.setX(newVec.getX() + rhs.getX());
+    newVec.setY(newVec.getY() + rhs.getY());
+    newVec.setZ(newVec.getZ() + rhs.getZ());
 
     return newVec;
 }

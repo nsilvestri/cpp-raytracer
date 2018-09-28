@@ -7,8 +7,8 @@ class RGBColor
         float g;
         float b;
     public:
-        RGBColor(float r, float g, float b);
         RGBColor();
+        RGBColor(float r, float g, float b);
         RGBColor(const RGBColor& obj);
 
         float getLuminance() const;
