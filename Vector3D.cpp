@@ -93,3 +93,12 @@ float Vector3D::dot(Vector3D other)
                 + this->getY() * other.getY() 
                 + this->getZ() * other.getZ();
 }
+
+Vector3D Vector3D::cross(Vector3D other)
+{
+    Vector3D newVec(*this);
+
+    return Vector3D(newVec.getY() * other.getZ() - newVec.getZ() * other.getY(),
+                    newVec.getZ() * other.getX() - newVec.getX() * other.getZ(),
+                    newVec.getX() * other.getY() - newVec.getY() * other.getX());
+}

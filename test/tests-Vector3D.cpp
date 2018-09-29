@@ -33,10 +33,22 @@ TEST_CASE("Dot two vectors", "[Vector3D]")
     Vector3D v2(1, 3, 5);
 
     REQUIRE(v1.dot(v2) == 22);
+    REQUIRE(v2.dot(v1) == 22);
 }
 
 TEST_CASE("Cross product of two vectors", "[Vector3D]")
 {
     Vector3D v1(1, 2, 3);
     Vector3D v2(1, 3, 5);
+    Vector3D v3;
+    
+    v3 = v1.cross(v2);
+    REQUIRE(v3.getX() == 1);
+    REQUIRE(v3.getY() == -2);
+    REQUIRE(v3.getZ() == 1);
+
+    v3 = v2.cross(v1);
+    REQUIRE(v3.getX() == -1);
+    REQUIRE(v3.getY() == 2);
+    REQUIRE(v3.getZ() == -1);
 }
