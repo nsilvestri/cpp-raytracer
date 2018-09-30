@@ -18,6 +18,8 @@ class Vector3D
         void setY(float y);
         void setZ(float z);
 
+        float length() const;
+
         Vector3D operator=(const Vector3D& rhs);
         Vector3D operator+(const Vector3D& rhs);
         Vector3D operator*(float scalar);

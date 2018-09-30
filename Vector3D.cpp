@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "Vector3D.hpp"
 
 Vector3D::Vector3D(float x, float y, float z)
@@ -51,8 +53,19 @@ void Vector3D::setZ(float z)
     this->z = z;
 }
 
-//return *this is a typical assignment operator syntax, so that you can
-//chain multiple assignments, e.g. a = b = c
+/**
+ * Return the length of this Vector3.
+ * 
+ * @return the length of this Vector3.
+ */
+float Vector3D::length() const
+{
+    return sqrt(pow(this->getX(), 2) + pow(this->getY(), 2) + pow(this->getZ(), 2));
+}
+
+/**
+ * Typical assignment operator.
+ */
 Vector3D Vector3D::operator=(const Vector3D& rhs) {
   this->x = rhs.getX();
   this->y = rhs.getY();
@@ -61,6 +74,12 @@ Vector3D Vector3D::operator=(const Vector3D& rhs) {
   return *this;
 }
 
+/**
+ * Add this vector with another vector.
+ * 
+ * @param rhs the Vector3D on the right hand side of the + operator.
+ * @return the result of the add operator.
+ */
 Vector3D Vector3D::operator+(const Vector3D& rhs)
 {
     Vector3D newVec(*this);
@@ -87,6 +106,12 @@ Vector3D Vector3D::operator*(float scalar)
     return newVec;
 }
 
+/**
+ * Compute the dot product between this vector and another vector.
+ *
+ * @param other the other vector to compute the dot product with.
+ * @return the result of the dot product
+ */
 float Vector3D::dot(Vector3D other)
 {
     return this->getX() * other.getX() 
@@ -94,6 +119,12 @@ float Vector3D::dot(Vector3D other)
                 + this->getZ() * other.getZ();
 }
 
+/**
+ * Computer the cross product between this vector and another vector.
+ * 
+ * @param other the other vector to compute the cross product with.
+ * @return the Vector3D representing the result of the cross product.
+ */
 Vector3D Vector3D::cross(Vector3D other)
 {
     Vector3D newVec(*this);
