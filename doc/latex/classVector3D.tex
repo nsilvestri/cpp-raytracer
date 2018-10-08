@@ -1,0 +1,149 @@
+\hypertarget{classVector3D}{}\section{Vector3D Class Reference}
+\label{classVector3D}\index{Vector3D@{Vector3D}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classVector3D_a17ed921510dc931d9686b7d9333f6d57}\label{classVector3D_a17ed921510dc931d9686b7d9333f6d57}} 
+{\bfseries Vector3D} (float x, float y, float z)
+\item 
+\mbox{\Hypertarget{classVector3D_a765ee7fc4bf9c338cb96fbd0499257a1}\label{classVector3D_a765ee7fc4bf9c338cb96fbd0499257a1}} 
+{\bfseries Vector3D} (const \hyperlink{classVector3D}{Vector3D} \&v)
+\item 
+\mbox{\Hypertarget{classVector3D_a1c2679622aef3b49ed30857ca3eda472}\label{classVector3D_a1c2679622aef3b49ed30857ca3eda472}} 
+float {\bfseries getX} () const
+\item 
+\mbox{\Hypertarget{classVector3D_a1568588ea6695cb2a5680b156f45f961}\label{classVector3D_a1568588ea6695cb2a5680b156f45f961}} 
+float {\bfseries getY} () const
+\item 
+\mbox{\Hypertarget{classVector3D_ab5f2c9a3a82269a8797d2fea70602ede}\label{classVector3D_ab5f2c9a3a82269a8797d2fea70602ede}} 
+float {\bfseries getZ} () const
+\item 
+\mbox{\Hypertarget{classVector3D_ac3904b095a2440b9067effc640cf7e5e}\label{classVector3D_ac3904b095a2440b9067effc640cf7e5e}} 
+void {\bfseries setX} (float x)
+\item 
+\mbox{\Hypertarget{classVector3D_a4672b17cd2a364928149b689958e273d}\label{classVector3D_a4672b17cd2a364928149b689958e273d}} 
+void {\bfseries setY} (float y)
+\item 
+\mbox{\Hypertarget{classVector3D_a2433f43f72a29a8b330ca6ef346eb6ab}\label{classVector3D_a2433f43f72a29a8b330ca6ef346eb6ab}} 
+void {\bfseries setZ} (float z)
+\item 
+float \hyperlink{classVector3D_abccd775509e00038dac9e3a48e74083a}{length} () const
+\item 
+\hyperlink{classVector3D}{Vector3D} \hyperlink{classVector3D_ae19e70a6888b99ec7fb3e48c04cf6386}{operator=} (const \hyperlink{classVector3D}{Vector3D} \&rhs)
+\item 
+\hyperlink{classVector3D}{Vector3D} \hyperlink{classVector3D_a9faa0ba77bc84f65fbde301ae4085ee9}{operator+} (const \hyperlink{classVector3D}{Vector3D} \&rhs)
+\item 
+\hyperlink{classVector3D}{Vector3D} \hyperlink{classVector3D_ac55913246c9f9d6bc5058e476977e260}{operator-\/} (const \hyperlink{classVector3D}{Vector3D} \&rhs)
+\item 
+\hyperlink{classVector3D}{Vector3D} \hyperlink{classVector3D_abfc0e53bd47939c99aec47831e3255e9}{operator$\ast$} (float scalar)
+\item 
+float \hyperlink{classVector3D_a8214f44353a8cef6b94062092581e976}{dot} (\hyperlink{classVector3D}{Vector3D} other)
+\item 
+\hyperlink{classVector3D}{Vector3D} \hyperlink{classVector3D_a0ddd32c1b0ac83d25bf6f99af473372e}{cross} (\hyperlink{classVector3D}{Vector3D} other)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classVector3D_a0ddd32c1b0ac83d25bf6f99af473372e}\label{classVector3D_a0ddd32c1b0ac83d25bf6f99af473372e}} 
+\index{Vector3D@{Vector3D}!cross@{cross}}
+\index{cross@{cross}!Vector3D@{Vector3D}}
+\subsubsection{\texorpdfstring{cross()}{cross()}}
+{\footnotesize\ttfamily \hyperlink{classVector3D}{Vector3D} Vector3\+D\+::cross (\begin{DoxyParamCaption}\item[{\hyperlink{classVector3D}{Vector3D}}]{other }\end{DoxyParamCaption})}
+
+Computer the cross product between this vector and another vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & the other vector to compute the cross product with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the \hyperlink{classVector3D}{Vector3D} representing the result of the cross product. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector3D_a8214f44353a8cef6b94062092581e976}\label{classVector3D_a8214f44353a8cef6b94062092581e976}} 
+\index{Vector3D@{Vector3D}!dot@{dot}}
+\index{dot@{dot}!Vector3D@{Vector3D}}
+\subsubsection{\texorpdfstring{dot()}{dot()}}
+{\footnotesize\ttfamily float Vector3\+D\+::dot (\begin{DoxyParamCaption}\item[{\hyperlink{classVector3D}{Vector3D}}]{other }\end{DoxyParamCaption})}
+
+Compute the dot product between this vector and another vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & the other vector to compute the dot product with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result of the dot product 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector3D_abccd775509e00038dac9e3a48e74083a}\label{classVector3D_abccd775509e00038dac9e3a48e74083a}} 
+\index{Vector3D@{Vector3D}!length@{length}}
+\index{length@{length}!Vector3D@{Vector3D}}
+\subsubsection{\texorpdfstring{length()}{length()}}
+{\footnotesize\ttfamily float Vector3\+D\+::length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Return the length of this Vector3.
+
+\begin{DoxyReturn}{Returns}
+the length of this Vector3. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector3D_abfc0e53bd47939c99aec47831e3255e9}\label{classVector3D_abfc0e53bd47939c99aec47831e3255e9}} 
+\index{Vector3D@{Vector3D}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!Vector3D@{Vector3D}}
+\subsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily \hyperlink{classVector3D}{Vector3D} Vector3\+D\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{float}]{scalar }\end{DoxyParamCaption})}
+
+Scale the vector by the given scalar.
+
+
+\begin{DoxyParams}{Parameters}
+{\em scalar} & the value to scale the vector by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a new vector equal to the original vector scaled by the scalar 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector3D_a9faa0ba77bc84f65fbde301ae4085ee9}\label{classVector3D_a9faa0ba77bc84f65fbde301ae4085ee9}} 
+\index{Vector3D@{Vector3D}!operator+@{operator+}}
+\index{operator+@{operator+}!Vector3D@{Vector3D}}
+\subsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily \hyperlink{classVector3D}{Vector3D} Vector3\+D\+::operator+ (\begin{DoxyParamCaption}\item[{const \hyperlink{classVector3D}{Vector3D} \&}]{rhs }\end{DoxyParamCaption})}
+
+Add this vector with another vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & the \hyperlink{classVector3D}{Vector3D} on the right hand side of the + operator. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result of the add operator. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector3D_ac55913246c9f9d6bc5058e476977e260}\label{classVector3D_ac55913246c9f9d6bc5058e476977e260}} 
+\index{Vector3D@{Vector3D}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Vector3D@{Vector3D}}
+\subsubsection{\texorpdfstring{operator-\/()}{operator-()}}
+{\footnotesize\ttfamily \hyperlink{classVector3D}{Vector3D} Vector3\+D\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \hyperlink{classVector3D}{Vector3D} \&}]{rhs }\end{DoxyParamCaption})}
+
+Subtracts this vector with another vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & the \hyperlink{classVector3D}{Vector3D} on the right hand side of the -\/ operator. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result of the subtraction operation. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector3D_ae19e70a6888b99ec7fb3e48c04cf6386}\label{classVector3D_ae19e70a6888b99ec7fb3e48c04cf6386}} 
+\index{Vector3D@{Vector3D}!operator=@{operator=}}
+\index{operator=@{operator=}!Vector3D@{Vector3D}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \hyperlink{classVector3D}{Vector3D} Vector3\+D\+::operator= (\begin{DoxyParamCaption}\item[{const \hyperlink{classVector3D}{Vector3D} \&}]{rhs }\end{DoxyParamCaption})}
+
+Typical assignment operator. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vector3\+D.\+hpp\item 
+Vector3\+D.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,55 @@
+This program can display and edit the gain, bias, and gamma of P\+PM images in the P6 format. It can also resize images according to a uniform scale.
+
+\subsection*{Installation}
+
+
+\begin{DoxyCode}
+$ git clone https://github.com/UA-CSC433-Fall2018/asgmt02-nsilvestri
+$ cd asgmt02-nsilvestri
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+\end{DoxyCode}
+
+
+\#\# Execution 
+\begin{DoxyCode}
+$ ./prog01 path\_to\_ppm [(output\_file scale)]
+\end{DoxyCode}
+ \#\#\#\# Example 
+\begin{DoxyCode}
+$ ./prog01 ../data/construction.ppm small\_construction.ppm .5
+\end{DoxyCode}
+
+
+\subsection*{Usage}
+
+While running the program\+:
+\begin{DoxyItemize}
+\item {\ttfamily q} increases gain by .05
+\item {\ttfamily a} decreases gain by .05
+\item {\ttfamily w} increases bias by .05
+\item {\ttfamily s} decreases bias by .05
+\item {\ttfamily e} increases gamma by .05
+\item {\ttfamily d} decreases gamma by .05
+\item {\ttfamily r} resizes the image by the scale provided at the command line and writes it to the file provided at the command line.
+\item {\ttfamily c} performs a 3x3 Guassian kernel convolution on the current image.
+\item {\ttfamily R\+E\+T\+U\+RN} writes the overwrites the currently edited file.
+\end{DoxyItemize}
+
+\subsection*{Testing}
+
+There are some Catch2 tests in the {\ttfamily test/} directory. Compile them with the makefile provided. Unit tests are not complete, at all, and really only exist for my sake. Because I wrote a bug into the code.
+
+\subsection*{Notes}
+
+Code has been tested on cambridge. Tested to work on all images in the {\ttfamily data/} directory, as well as some other images that were found online.
+
+I started doxygen/\+Javadoc style comments for some of it. They\textquotesingle{}re incomplete now. Laziness.
+
+\paragraph*{Known Bugs}
+
+Data loss can occur when scaling any factor and undoing it.
+
+Resizing an image to a smaller image convolutes the current image. It\textquotesingle{}s not really a bug, just lazy programming because I\textquotesingle{}ve been working on this all day and just want it to be done now. I mean, I spent 3 hours trying to track down a segfault and it ended up just being because I didn\textquotesingle{}t allocate space for a buffer used by memcpy. Catch me later. But, like, I think this is a damn good framework so far. I mean, I\textquotesingle{}ve cut a lot of corners but the outline for something really good is there. 

@@ -1,0 +1,58 @@
+\hypertarget{main_8cpp}{}\section{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.\+cpp@{main.\+cpp}}
+
+
+C\+SC 433, prog01\+: P\+PM Viewer.  
+
+
+{\ttfamily \#include $<$S\+D\+L.\+h$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cfloat$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include \char`\"{}P\+P\+M\+Image.\+hpp\char`\"{}}\newline
+Include dependency graph for main.\+cpp\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8cpp_a343bdc6b0f085211d4043f2d9485476c}{log\+S\+D\+L\+Error} (std\+::ostream \&os, const std\+::string \&msg)
+\item 
+\mbox{\Hypertarget{main_8cpp_a263f502976546a3e6bb7ceb75d92712a}\label{main_8cpp_a263f502976546a3e6bb7ceb75d92712a}} 
+void {\bfseries render\+Texture} (S\+D\+L\+\_\+\+Texture $\ast$tex, S\+D\+L\+\_\+\+Renderer $\ast$ren, int x, int y)
+\item 
+\mbox{\Hypertarget{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+int {\bfseries main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+C\+SC 433, prog01\+: P\+PM Viewer. 
+
+\begin{DoxyAuthor}{Author}
+Nick Silvestri \href{mailto:nsilvestri@email.arizona.edu}{\tt nsilvestri@email.\+arizona.\+edu} 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2018-\/09-\/02 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_a343bdc6b0f085211d4043f2d9485476c}\label{main_8cpp_a343bdc6b0f085211d4043f2d9485476c}} 
+\index{main.\+cpp@{main.\+cpp}!log\+S\+D\+L\+Error@{log\+S\+D\+L\+Error}}
+\index{log\+S\+D\+L\+Error@{log\+S\+D\+L\+Error}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{log\+S\+D\+L\+Error()}{logSDLError()}}
+{\footnotesize\ttfamily void log\+S\+D\+L\+Error (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const std\+::string \&}]{msg }\end{DoxyParamCaption})}
+
+Log an S\+DL error with some error message to the output stream of our choice
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & The output stream to write the message to \\
+\hline
+{\em msg} & The error message to write, S\+D\+L\+\_\+\+Get\+Error() appended to it \\
+\hline
+\end{DoxyParams}

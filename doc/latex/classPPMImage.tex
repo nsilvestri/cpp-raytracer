@@ -1,0 +1,158 @@
+\hypertarget{classPPMImage}{}\section{P\+P\+M\+Image Class Reference}
+\label{classPPMImage}\index{P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classPPMImage_a0115b29f89aa37df9c2b464602975db4}{P\+P\+M\+Image} (std\+::string filepath)
+\item 
+\mbox{\Hypertarget{classPPMImage_a8a9fbafde497d709846a44dfa4f9f7a7}\label{classPPMImage_a8a9fbafde497d709846a44dfa4f9f7a7}} 
+{\bfseries P\+P\+M\+Image} (\hyperlink{classRGBColor}{R\+G\+B\+Color} $\ast$pixels, int width, int height)
+\item 
+\hyperlink{classPPMImage_a5e7deaacad136e95057381bb0b30e25a}{$\sim$\+P\+P\+M\+Image} ()
+\item 
+void \hyperlink{classPPMImage_a1d31bcbff990b8ddaca75acaed900711}{rescale} (float gain, float bias, float gamma)
+\item 
+unsigned char $\ast$ \hyperlink{classPPMImage_a6251e11a3e63d587526c04a4d67018a8}{get\+Data} ()
+\item 
+std\+::string \hyperlink{classPPMImage_ac1c531367f7b41d60e527d10f77f7536}{get\+Filepath} ()
+\item 
+int \hyperlink{classPPMImage_ac764135f24d3cb73ad364216f91f80d6}{get\+Rows} ()
+\item 
+int \hyperlink{classPPMImage_a3c6700065f9512bbc03873f0400fca4a}{get\+Cols} ()
+\item 
+int \hyperlink{classPPMImage_aa4fc6f6e7eb6fc7304c214b75b8eb80e}{get\+Max\+Value} ()
+\item 
+\hyperlink{classRGBColor}{R\+G\+B\+Color} $\ast$ \hyperlink{classPPMImage_a812aa553ba32c6ebf901807fda170f1d}{get\+Pixel\+At} (int row, int col)
+\item 
+void \hyperlink{classPPMImage_ae2f29baea2f93059c83160bb80f2af4c}{write} (std\+::string filepath)
+\item 
+\mbox{\Hypertarget{classPPMImage_ae42d5bee0da02e937036ce7295221de0}\label{classPPMImage_ae42d5bee0da02e937036ce7295221de0}} 
+void {\bfseries convolve} (int $\ast$$\ast$kernel, int rows, int cols)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPPMImage_a0115b29f89aa37df9c2b464602975db4}\label{classPPMImage_a0115b29f89aa37df9c2b464602975db4}} 
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsubsection{\texorpdfstring{P\+P\+M\+Image()}{PPMImage()}}
+{\footnotesize\ttfamily P\+P\+M\+Image\+::\+P\+P\+M\+Image (\begin{DoxyParamCaption}\item[{std\+::string}]{filepath }\end{DoxyParamCaption})}
+
+Constructor for \hyperlink{classPPMImage}{P\+P\+M\+Image}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filepath} & The location of the \hyperlink{classPPMImage}{P\+P\+M\+Image} this object represents. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPPMImage_a5e7deaacad136e95057381bb0b30e25a}\label{classPPMImage_a5e7deaacad136e95057381bb0b30e25a}} 
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!````~P\+P\+M\+Image@{$\sim$\+P\+P\+M\+Image}}
+\index{````~P\+P\+M\+Image@{$\sim$\+P\+P\+M\+Image}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsubsection{\texorpdfstring{$\sim$\+P\+P\+M\+Image()}{~PPMImage()}}
+{\footnotesize\ttfamily P\+P\+M\+Image\+::$\sim$\+P\+P\+M\+Image (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor for \hyperlink{classPPMImage}{P\+P\+M\+Image}. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classPPMImage_a3c6700065f9512bbc03873f0400fca4a}\label{classPPMImage_a3c6700065f9512bbc03873f0400fca4a}} 
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!get\+Cols@{get\+Cols}}
+\index{get\+Cols@{get\+Cols}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsubsection{\texorpdfstring{get\+Cols()}{getCols()}}
+{\footnotesize\ttfamily int P\+P\+M\+Image\+::get\+Cols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Return the number of columns in this image as an int.
+
+\begin{DoxyReturn}{Returns}
+the number of columns in this image as an int. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPPMImage_a6251e11a3e63d587526c04a4d67018a8}\label{classPPMImage_a6251e11a3e63d587526c04a4d67018a8}} 
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!get\+Data@{get\+Data}}
+\index{get\+Data@{get\+Data}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsubsection{\texorpdfstring{get\+Data()}{getData()}}
+{\footnotesize\ttfamily unsigned char $\ast$ P\+P\+M\+Image\+::get\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns a pointer to the array of raw data for this image.
+
+\begin{DoxyReturn}{Returns}
+a pointer to the array raw data for this image. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPPMImage_ac1c531367f7b41d60e527d10f77f7536}\label{classPPMImage_ac1c531367f7b41d60e527d10f77f7536}} 
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!get\+Filepath@{get\+Filepath}}
+\index{get\+Filepath@{get\+Filepath}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsubsection{\texorpdfstring{get\+Filepath()}{getFilepath()}}
+{\footnotesize\ttfamily std\+::string P\+P\+M\+Image\+::get\+Filepath (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Return the filepath that this image was read from, as a string.
+
+\begin{DoxyReturn}{Returns}
+a string representing the filepath that this image was retrived from. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPPMImage_aa4fc6f6e7eb6fc7304c214b75b8eb80e}\label{classPPMImage_aa4fc6f6e7eb6fc7304c214b75b8eb80e}} 
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!get\+Max\+Value@{get\+Max\+Value}}
+\index{get\+Max\+Value@{get\+Max\+Value}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsubsection{\texorpdfstring{get\+Max\+Value()}{getMaxValue()}}
+{\footnotesize\ttfamily int P\+P\+M\+Image\+::get\+Max\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the maximum value for a pixel in this image, as an int.
+
+\begin{DoxyReturn}{Returns}
+the maximum value for a pixel in this image, as an int. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPPMImage_a812aa553ba32c6ebf901807fda170f1d}\label{classPPMImage_a812aa553ba32c6ebf901807fda170f1d}} 
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!get\+Pixel\+At@{get\+Pixel\+At}}
+\index{get\+Pixel\+At@{get\+Pixel\+At}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsubsection{\texorpdfstring{get\+Pixel\+At()}{getPixelAt()}}
+{\footnotesize\ttfamily \hyperlink{classRGBColor}{R\+G\+B\+Color} $\ast$ P\+P\+M\+Image\+::get\+Pixel\+At (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col }\end{DoxyParamCaption})}
+
+Returns a pointer to the \hyperlink{classRGBColor}{R\+G\+B\+Color} object at the given indices in the image.
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & the row of the requested pixel  col the column of the requested pixel \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPPMImage_ac764135f24d3cb73ad364216f91f80d6}\label{classPPMImage_ac764135f24d3cb73ad364216f91f80d6}} 
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!get\+Rows@{get\+Rows}}
+\index{get\+Rows@{get\+Rows}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsubsection{\texorpdfstring{get\+Rows()}{getRows()}}
+{\footnotesize\ttfamily int P\+P\+M\+Image\+::get\+Rows (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Return the number of rows in this image as an int.
+
+\begin{DoxyReturn}{Returns}
+the number of rows in this image as an int. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPPMImage_a1d31bcbff990b8ddaca75acaed900711}\label{classPPMImage_a1d31bcbff990b8ddaca75acaed900711}} 
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!rescale@{rescale}}
+\index{rescale@{rescale}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsubsection{\texorpdfstring{rescale()}{rescale()}}
+{\footnotesize\ttfamily void P\+P\+M\+Image\+::rescale (\begin{DoxyParamCaption}\item[{float}]{gain,  }\item[{float}]{bias,  }\item[{float}]{gamma }\end{DoxyParamCaption})}
+
+Rescale the image based on the given parameters.
+
+
+\begin{DoxyParams}{Parameters}
+{\em gain} & the gain to adjust the image by \\
+\hline
+{\em bias} & the bias to adjust the image by \\
+\hline
+{\em gamma} & the gamma to adjust the image by \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPPMImage_ae2f29baea2f93059c83160bb80f2af4c}\label{classPPMImage_ae2f29baea2f93059c83160bb80f2af4c}} 
+\index{P\+P\+M\+Image@{P\+P\+M\+Image}!write@{write}}
+\index{write@{write}!P\+P\+M\+Image@{P\+P\+M\+Image}}
+\subsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily void P\+P\+M\+Image\+::write (\begin{DoxyParamCaption}\item[{std\+::string}]{filepath }\end{DoxyParamCaption})}
+
+Writes this image to the file specified by the filepath. 
+\begin{DoxyParams}{Parameters}
+{\em filepath} & the file to write this image to \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+P\+P\+M\+Image.\+hpp\item 
+\hyperlink{PPMImage_8cpp}{P\+P\+M\+Image.\+cpp}\end{DoxyCompactItemize}

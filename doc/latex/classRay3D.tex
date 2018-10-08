@@ -1,0 +1,109 @@
+\hypertarget{classRay3D}{}\section{Ray3D Class Reference}
+\label{classRay3D}\index{Ray3D@{Ray3D}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classRay3D_a13768cb6020d680745d9c3744e1464d6}{Ray3D} ()
+\item 
+\hyperlink{classRay3D_ab1ac8135f87e4987d9600cb9ba88a4e4}{Ray3D} (\hyperlink{classVector3D}{Vector3D} origin, \hyperlink{classVector3D}{Vector3D} direction)
+\item 
+\hyperlink{classRay3D_af5e8f0f9eaa1a99ab8d2d4241aa8580f}{Ray3D} (const \hyperlink{classRay3D}{Ray3D} \&r)
+\item 
+\hyperlink{classVector3D}{Vector3D} \hyperlink{classRay3D_a502f164e4686e935b2da62ecfc3c1763}{get\+Origin} () const
+\item 
+\hyperlink{classVector3D}{Vector3D} \hyperlink{classRay3D_a62d8fd3e9685b09cc9eef7d553bdffb0}{get\+Direction} () const
+\item 
+void \hyperlink{classRay3D_af55f9d1ca3d2b9f1eba5d7e6cf03b660}{set\+Origin} (\hyperlink{classVector3D}{Vector3D} origin)
+\item 
+void \hyperlink{classRay3D_a3cb1d7b99c881a9fc059ef125232bb3b}{set\+Direction} (\hyperlink{classVector3D}{Vector3D} direction)
+\item 
+bool \hyperlink{classRay3D_a3d2192f11ca0607eab71e66551cc9288}{is\+Point\+On} (\hyperlink{classVector3D}{Vector3D} point) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classRay3D_a13768cb6020d680745d9c3744e1464d6}\label{classRay3D_a13768cb6020d680745d9c3744e1464d6}} 
+\index{Ray3D@{Ray3D}!Ray3D@{Ray3D}}
+\index{Ray3D@{Ray3D}!Ray3D@{Ray3D}}
+\subsubsection{\texorpdfstring{Ray3\+D()}{Ray3D()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Ray3\+D\+::\+Ray3D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default constructor of \hyperlink{classRay3D}{Ray3D}. Sets the origin and direction to Vector3\+Ds with initial values of 0. \mbox{\Hypertarget{classRay3D_ab1ac8135f87e4987d9600cb9ba88a4e4}\label{classRay3D_ab1ac8135f87e4987d9600cb9ba88a4e4}} 
+\index{Ray3D@{Ray3D}!Ray3D@{Ray3D}}
+\index{Ray3D@{Ray3D}!Ray3D@{Ray3D}}
+\subsubsection{\texorpdfstring{Ray3\+D()}{Ray3D()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Ray3\+D\+::\+Ray3D (\begin{DoxyParamCaption}\item[{\hyperlink{classVector3D}{Vector3D}}]{origin,  }\item[{\hyperlink{classVector3D}{Vector3D}}]{direction }\end{DoxyParamCaption})}
+
+Constructor for \hyperlink{classRay3D}{Ray3D}. Creates a new \hyperlink{classRay3D}{Ray3D} object based on the given origin and direction, given as \hyperlink{classVector3D}{Vector3D} objects. 
+\begin{DoxyParams}{Parameters}
+{\em origin} & the origin of this new \hyperlink{classRay3D}{Ray3D} \\
+\hline
+{\em direction} & the direction of this new \hyperlink{classRay3D}{Ray3D} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRay3D_af5e8f0f9eaa1a99ab8d2d4241aa8580f}\label{classRay3D_af5e8f0f9eaa1a99ab8d2d4241aa8580f}} 
+\index{Ray3D@{Ray3D}!Ray3D@{Ray3D}}
+\index{Ray3D@{Ray3D}!Ray3D@{Ray3D}}
+\subsubsection{\texorpdfstring{Ray3\+D()}{Ray3D()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Ray3\+D\+::\+Ray3D (\begin{DoxyParamCaption}\item[{const \hyperlink{classRay3D}{Ray3D} \&}]{r }\end{DoxyParamCaption})}
+
+Copy constructor for \hyperlink{classRay3D}{Ray3D} 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classRay3D_a62d8fd3e9685b09cc9eef7d553bdffb0}\label{classRay3D_a62d8fd3e9685b09cc9eef7d553bdffb0}} 
+\index{Ray3D@{Ray3D}!get\+Direction@{get\+Direction}}
+\index{get\+Direction@{get\+Direction}!Ray3D@{Ray3D}}
+\subsubsection{\texorpdfstring{get\+Direction()}{getDirection()}}
+{\footnotesize\ttfamily \hyperlink{classVector3D}{Vector3D} Ray3\+D\+::get\+Direction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Gets the direction of this \hyperlink{classRay3D}{Ray3D} as a \hyperlink{classVector3D}{Vector3D}. \begin{DoxyReturn}{Returns}
+the direction of this \hyperlink{classRay3D}{Ray3D} as a \hyperlink{classVector3D}{Vector3D}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRay3D_a502f164e4686e935b2da62ecfc3c1763}\label{classRay3D_a502f164e4686e935b2da62ecfc3c1763}} 
+\index{Ray3D@{Ray3D}!get\+Origin@{get\+Origin}}
+\index{get\+Origin@{get\+Origin}!Ray3D@{Ray3D}}
+\subsubsection{\texorpdfstring{get\+Origin()}{getOrigin()}}
+{\footnotesize\ttfamily \hyperlink{classVector3D}{Vector3D} Ray3\+D\+::get\+Origin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Gets the origin of this \hyperlink{classRay3D}{Ray3D} as a \hyperlink{classVector3D}{Vector3D}. \begin{DoxyReturn}{Returns}
+the origin of this \hyperlink{classRay3D}{Ray3D} as a \hyperlink{classVector3D}{Vector3D}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRay3D_a3d2192f11ca0607eab71e66551cc9288}\label{classRay3D_a3d2192f11ca0607eab71e66551cc9288}} 
+\index{Ray3D@{Ray3D}!is\+Point\+On@{is\+Point\+On}}
+\index{is\+Point\+On@{is\+Point\+On}!Ray3D@{Ray3D}}
+\subsubsection{\texorpdfstring{is\+Point\+On()}{isPointOn()}}
+{\footnotesize\ttfamily bool Ray3\+D\+::is\+Point\+On (\begin{DoxyParamCaption}\item[{\hyperlink{classVector3D}{Vector3D}}]{point }\end{DoxyParamCaption}) const}
+
+Determines if the given \hyperlink{classVector3D}{Vector3D}, interpreted as a point, lies on this \hyperlink{classRay3D}{Ray3D}. 
+\begin{DoxyParams}{Parameters}
+{\em point} & the \hyperlink{classVector3D}{Vector3D} point to check if it lies on this \hyperlink{classRay3D}{Ray3D}. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRay3D_a3cb1d7b99c881a9fc059ef125232bb3b}\label{classRay3D_a3cb1d7b99c881a9fc059ef125232bb3b}} 
+\index{Ray3D@{Ray3D}!set\+Direction@{set\+Direction}}
+\index{set\+Direction@{set\+Direction}!Ray3D@{Ray3D}}
+\subsubsection{\texorpdfstring{set\+Direction()}{setDirection()}}
+{\footnotesize\ttfamily void Ray3\+D\+::set\+Direction (\begin{DoxyParamCaption}\item[{\hyperlink{classVector3D}{Vector3D}}]{direction }\end{DoxyParamCaption})}
+
+Sets the direction of this \hyperlink{classRay3D}{Ray3D} to the given direction. 
+\begin{DoxyParams}{Parameters}
+{\em direction} & the new direction to set this \hyperlink{classRay3D}{Ray3D} to. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRay3D_af55f9d1ca3d2b9f1eba5d7e6cf03b660}\label{classRay3D_af55f9d1ca3d2b9f1eba5d7e6cf03b660}} 
+\index{Ray3D@{Ray3D}!set\+Origin@{set\+Origin}}
+\index{set\+Origin@{set\+Origin}!Ray3D@{Ray3D}}
+\subsubsection{\texorpdfstring{set\+Origin()}{setOrigin()}}
+{\footnotesize\ttfamily void Ray3\+D\+::set\+Origin (\begin{DoxyParamCaption}\item[{\hyperlink{classVector3D}{Vector3D}}]{origin }\end{DoxyParamCaption})}
+
+Sets the origin of this \hyperlink{classRay3D}{Ray3D} to the given origin. 
+\begin{DoxyParams}{Parameters}
+{\em origin} & the new origin to set this \hyperlink{classRay3D}{Ray3D} to. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Ray3\+D.\+hpp\item 
+Ray3\+D.\+cpp\end{DoxyCompactItemize}
