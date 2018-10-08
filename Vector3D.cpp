@@ -91,6 +91,22 @@ Vector3D Vector3D::operator+(const Vector3D& rhs)
 }
 
 /**
+ * Subtracts this vector with another vector.
+ * 
+ * @param rhs the Vector3D on the right hand side of the - operator.
+ * @return the result of the subtraction operation.
+ */
+Vector3D Vector3D::operator-(const Vector3D& rhs)
+{
+    Vector3D newVec(*this);
+    newVec.setX(newVec.getX() - rhs.getX());
+    newVec.setY(newVec.getY() - rhs.getY());
+    newVec.setZ(newVec.getZ() - rhs.getZ());
+
+    return newVec;
+}
+
+/**
  * Scale the vector by the given scalar.
  * 
  * @param scalar the value to scale the vector by

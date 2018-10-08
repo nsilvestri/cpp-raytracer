@@ -22,6 +22,7 @@ class Vector3D
 
         Vector3D operator=(const Vector3D& rhs);
         Vector3D operator+(const Vector3D& rhs);
+        Vector3D operator-(const Vector3D& rhs);
         Vector3D operator*(float scalar);
         float dot(Vector3D other);
         Vector3D cross(Vector3D other);
