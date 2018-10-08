@@ -10,6 +10,15 @@ class Sphere : public Surface
         Vector3D position;
         float radius;
     public:
+        Sphere();
+        Sphere(Vector3D position, float radius);
+
+        Vector3D getPosition();
+        float getRadius();
+
+        void setPosition(Vector3D position);
+        void setRadius(float radius);
+
         bool intersect(IntersectionRecord &result, Ray3D r);
 };
 
