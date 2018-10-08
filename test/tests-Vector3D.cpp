@@ -27,6 +27,17 @@ TEST_CASE("Add two vectors", "[Vector3D]")
     REQUIRE(v3.getZ() == 8);
 }
 
+TEST_CASE("Subtract two vectors", "[Vector3D]")
+{
+    Vector3D v1(1, 2, 3);
+    Vector3D v2(1, 3, 5);
+
+    Vector3D v3 = v1 - v2;
+    REQUIRE(v3.getX() == 0);
+    REQUIRE(v3.getY() == -1);
+    REQUIRE(v3.getZ() == -2);
+}
+
 TEST_CASE("Dot two vectors", "[Vector3D]")
 {
     Vector3D v1(1, 2, 3);
