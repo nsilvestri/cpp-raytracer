@@ -8,7 +8,7 @@ TEST_CASE("Scale vector by scalar", "[Vector3D]")
 {
     Vector3D v(1, 2, 3);
     v = v * 2.0;
-    REQUIRE(v.getX() == 2);
+    REQUIRE(v.getX() == 2); 
     REQUIRE(v.getY() == 4);
     REQUIRE(v.getZ() == 6);
 
