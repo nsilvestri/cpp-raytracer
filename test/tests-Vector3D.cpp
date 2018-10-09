@@ -102,7 +102,7 @@ TEST_CASE("Normalize vector", "[Vector3D]")
     v2.normalize();
     REQUIRE(v2.length() == one);
 
-    Vector3D v3(-35, 0, 3);
+    Vector3D v3(-35, 0, 0.13);
     v3.normalize();
     REQUIRE(v3.length() == one);
 
