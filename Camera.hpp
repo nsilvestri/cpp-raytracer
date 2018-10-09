@@ -14,6 +14,8 @@ class Camera
         float fov;
         
         float imageDistance;
+        int horizontalResolution;
+        int verticalResolution;
 
         Vector3D u;
         Vector3D v;
@@ -21,12 +23,15 @@ class Camera
         void calculateUVW();
         
     public:
-        Camera(Vector3D position, Vector3D imageLocation, Vector3D up);
+        Camera(Vector3D position, Vector3D imageLocation, Vector3D up,
+                int horizontalResolution, int verticalResolution);
         Camera(const Vector3D& c);
 
         void setPosition(Vector3D position);
         void setImagePosition(Vector3D imagePosition);
         void defineUp(Vector3D up);
+        void setHorizontalResolution(int horizontalResolution);
+        void setVerticalResolution(int verticalResolution);
 
         Vector3D getPosition() const;
         Vector3D getImagePosition() const;

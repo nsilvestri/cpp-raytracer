@@ -1,10 +1,13 @@
 #include "Camera.hpp"
 
-Camera::Camera(Vector3D position, Vector3D imagePosition, Vector3D up)
+Camera::Camera(Vector3D position, Vector3D imagePosition, Vector3D up,
+        int horizontalResolution, int verticalResolution)
 {
     this->setPosition(position);
     this->setImagePosition(imagePosition);
     this->defineUp(up);
+    this->setHorizontalResolution(horizontalResolution);
+    this->setVerticalResolution(verticalResolution);
 }
 
 Camera::Camera(const Camera& c)
@@ -36,7 +39,7 @@ void Camera::defineUp(Vector3D up)
 }
 
 /**
- * Private method to recalculate u, v, and w of the image space basis. Each
+ * Private method to calculate u, v, and w of the orthnormal image basis. Each
  * vector is defined as follows:
  *      w = -1 * (cameraPosition - imagePosition)
  *      u = w x up
@@ -44,10 +47,12 @@ void Camera::defineUp(Vector3D up)
  */
 void Camera::calculateUVW()
 {
+    // create orthogonal basis
     this->w = (this->getImagePosition() - this->getImagePosition()) * -1;
     this->u = this->w.cross(this->up);
     this->v = this->u.cross(this->w);
 
+    // normalize to create orthonormal basis
     this->w.normalize();
     this->u.normalize();
     this->v.normalize();
