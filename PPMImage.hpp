@@ -24,7 +24,7 @@ class PPMImage
         int getRows();
         int getCols();
         int getMaxValue();
-        RGBColor* getPixelAt(int row, int col);
+        RGBColor& getPixelAt(int row, int col);
         void write(std::string filepath);
         void convolve(int** kernel, int rows, int cols);
 };

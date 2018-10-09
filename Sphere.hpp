@@ -19,6 +19,6 @@ class Sphere : public Surface
         void setPosition(Vector3D position);
         void setRadius(float radius);
 
-        bool intersect(IntersectionRecord &result, Ray3D r);
+        bool intersect(IntersectionRecord& result, Ray3D r);
 };
 

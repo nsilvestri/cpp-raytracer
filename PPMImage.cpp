@@ -133,17 +133,17 @@ void PPMImage::rescale(float gain, float bias, float gamma)
 	{
 		for (int c = 0; c < this->cols; c++)
 		{
-			float pixelLuminance = this->getPixelAt(r, c)->getLuminance();
+			float pixelLuminance = this->getPixelAt(r, c).getLuminance();
 			float newLuminance = std::pow(((gain * pixelLuminance) + bias), gamma);
 			float scale = newLuminance / pixelLuminance;
 			if (r == 0 && c == 0)
 			{
-				std::cout << this->getPixelAt(r, c)->getLuminance() << std::endl;
+				std::cout << this->getPixelAt(r, c).getLuminance() << std::endl;
 			}
-			this->getPixelAt(r, c)->scale(scale);
+			this->getPixelAt(r, c).scale(scale);
 			if (r == 0 && c == 0)
 			{
-				std::cout << this->getPixelAt(r, c)->getLuminance() << std::endl;
+				std::cout << this->getPixelAt(r, c).getLuminance() << std::endl;
 			}
 		}
 	}
@@ -162,10 +162,10 @@ void PPMImage::regenerateData()
 	{
 		for (int c = 0; c < this->cols; c++)
 		{
-			RGBColor* p = this->getPixelAt(r, c);
-			newData += (unsigned char)(p->getR() * 255);
-			newData += (unsigned char)(p->getG() * 255);
-			newData += (unsigned char)(p->getB() * 255);
+			RGBColor& p = this->getPixelAt(r, c);
+			newData += (unsigned char)(p.getR() * 255);
+			newData += (unsigned char)(p.getG() * 255);
+			newData += (unsigned char)(p.getB() * 255);
 		}
 	}
 	memcpy(this->data, newData.c_str(), newData.length());
@@ -222,9 +222,9 @@ int PPMImage::getMaxValue() {
  * @param row the row of the requested pixel
  * @parram col the column of the requested pixel
  */
-RGBColor* PPMImage::getPixelAt(int row, int col)
+RGBColor& PPMImage::getPixelAt(int row, int col)
 {
-	return &(this->pixels[row][col]);
+	return this->pixels[row][col];
 }
 
 /**
@@ -279,14 +279,14 @@ void PPMImage::convolve(int** kernel, int kernelRows, int kernelCols)
 					}
 
 					// get the pixel relative to the center of the kernel
-					RGBColor* p = this->getPixelAt(pixelRow, pixelCol);
+					RGBColor& p = this->getPixelAt(pixelRow, pixelCol);
 
 					int kVal = kernel[kernelR][kernelC];
 					kSum += kVal;
 
-					rSum += kVal * p->getR();
-					gSum += kVal * p->getG();
-					bSum += kVal * p->getB();
+					rSum += kVal * p.getR();
+					gSum += kVal * p.getG();
+					bSum += kVal * p.getB();
 				}
 			}
 
@@ -294,7 +294,7 @@ void PPMImage::convolve(int** kernel, int kernelRows, int kernelCols)
 			float gAvg = (gSum / kSum);
 			float bAvg = (bSum / kSum);
 
-			this->getPixelAt(imgR, imgC)->setRGB(rAvg, gAvg, bAvg);
+			this->getPixelAt(imgR, imgC).setRGB(rAvg, gAvg, bAvg);
 		}
 	}
 }
