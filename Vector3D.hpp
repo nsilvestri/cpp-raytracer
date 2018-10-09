@@ -19,6 +19,7 @@ class Vector3D
         void setZ(float z);
 
         float length() const;
+        void normalize();
 
         Vector3D operator=(const Vector3D& rhs);
         Vector3D operator+(const Vector3D& rhs);

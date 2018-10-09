@@ -54,13 +54,26 @@ void Vector3D::setZ(float z)
 }
 
 /**
- * Return the length of this Vector3.
+ * Return the length of this Vector3D.
  * 
- * @return the length of this Vector3.
+ * @return the length of this Vector3D.
  */
 float Vector3D::length() const
 {
     return sqrt(pow(this->getX(), 2) + pow(this->getY(), 2) + pow(this->getZ(), 2));
+}
+
+/**
+ * Normalizes this vector; i.e. changes the length of this vector to 1 while
+ * preserving direction. If the length of this vector is 0, nothing happens to
+ * this vector.
+ */
+void Vector3D::normalize()
+{
+    float length = this->length();
+    if (length == 0) return;
+    // this = this / length(this)
+    *this = *this * (1.0 / length);
 }
 
 /**

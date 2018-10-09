@@ -89,3 +89,24 @@ TEST_CASE("Calculate the length of a vector", "[Vector3D]")
     REQUIRE(v7.length() == sqrt3);
     REQUIRE(v8.length() == sqrt3);
 }
+
+TEST_CASE("Normalize vector", "[Vector3D]")
+{
+    Approx one = Approx(sqrt(1)).margin(0.01);
+
+    Vector3D v1(1, 2, 3);
+    v1.normalize();
+    REQUIRE(v1.length() == one);
+
+    Vector3D v2(2359, 222, 6820);
+    v2.normalize();
+    REQUIRE(v2.length() == one);
+
+    Vector3D v3(-35, 0, 3);
+    v3.normalize();
+    REQUIRE(v3.length() == one);
+
+    Vector3D v4(0, 0, 0);
+    v4.normalize();
+    REQUIRE(v4.length() == 0.0);
+}
