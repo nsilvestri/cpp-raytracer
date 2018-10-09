@@ -15,11 +15,11 @@ TEST_CASE("Get specific pixel", "[PPMImage]")
     PPMImage* i = new PPMImage(pixels, 3, 3);
 
     Approx target1 = Approx(0).margin(0.01);
-    REQUIRE(i->getPixelAt(0, 0)->getR() == target1);
+    REQUIRE(i->getPixelAt(0, 0).getR() == target1);
 
     Approx target2 = Approx(.1).epsilon(0.01);
-    REQUIRE(i->getPixelAt(0, 1)->getG() == target2);
+    REQUIRE(i->getPixelAt(0, 1).getG() == target2);
 
     Approx target3 = Approx(.8).epsilon(0.01);
-    REQUIRE(i->getPixelAt(2, 2)->getB() == target3);
+    REQUIRE(i->getPixelAt(2, 2).getB() == target3);
 }

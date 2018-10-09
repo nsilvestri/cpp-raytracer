@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "catch.hpp"
 
 #include "../Vector3D.hpp"
@@ -62,4 +64,28 @@ TEST_CASE("Cross product of two vectors", "[Vector3D]")
     REQUIRE(v3.getX() == -1);
     REQUIRE(v3.getY() == 2);
     REQUIRE(v3.getZ() == -1);
+}
+
+TEST_CASE("Calculate the length of a vector", "[Vector3D]")
+{   
+    Vector3D v0(0, 0, 0);
+    REQUIRE(v0.length() == 0);
+    Vector3D v1(1, 0, 0);
+    Vector3D v2(0, 1, 0);
+    Vector3D v3(0, 0, 1);
+    Vector3D v4(-1, 0, 0);
+    Vector3D v5(0, -1, 0);
+    Vector3D v6(0, 0, -1);
+    REQUIRE(v1.length() == 1);
+    REQUIRE(v2.length() == 1);
+    REQUIRE(v3.length() == 1);
+    REQUIRE(v4.length() == 1);
+    REQUIRE(v5.length() == 1);
+    REQUIRE(v6.length() == 1);
+
+    Approx sqrt3 = Approx(sqrt(3)).margin(0.01);
+    Vector3D v7(1, 1, 1);
+    Vector3D v8(1, -1, 1);
+    REQUIRE(v7.length() == sqrt3);
+    REQUIRE(v8.length() == sqrt3);
 }
