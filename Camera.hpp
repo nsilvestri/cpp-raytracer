@@ -8,15 +8,15 @@
 class Camera
 {
     private:
+        /* Vectors accessible from setters/getters */
         Vector3D position;
         Vector3D imagePosition; // also known as "lookat" vector
         Vector3D up;
         float fov;
-        
-        float imageDistance;
         int horizontalResolution;
         int verticalResolution;
 
+        float imageDistance;
         Vector3D u;
         Vector3D v;
         Vector3D w;
@@ -25,11 +25,13 @@ class Camera
     public:
         Camera(Vector3D position, Vector3D imageLocation, Vector3D up,
                 int horizontalResolution, int verticalResolution);
+        Camera();
         Camera(const Vector3D& c);
 
         void setPosition(Vector3D position);
         void setImagePosition(Vector3D imagePosition);
         void defineUp(Vector3D up);
+        void setFov(float fov);
         void setHorizontalResolution(int horizontalResolution);
         void setVerticalResolution(int verticalResolution);
 

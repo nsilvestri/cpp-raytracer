@@ -10,6 +10,11 @@ Camera::Camera(Vector3D position, Vector3D imagePosition, Vector3D up,
     this->setVerticalResolution(verticalResolution);
 }
 
+Camera::Camera()
+{
+
+}
+
 Camera::Camera(const Camera& c)
 {
     this->setPosition(c.getPosition());
@@ -36,6 +41,11 @@ void Camera::defineUp(Vector3D up)
 {
     this->up = up;
     calculateUVW();
+}
+
+void Camera::setFov(float fov)
+{
+    this->fov = fov;
 }
 
 /**
