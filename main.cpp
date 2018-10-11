@@ -18,7 +18,9 @@
 #include <fstream>
 
 // logging includes
-// #include "spdlog/spdlog.h"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
+auto logger = spdlog::stdout_color_mt("logger");
 
 // custom includes
 #include "PPMImage.hpp"
@@ -66,6 +68,8 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y)
 //
 int main(int argc, char **argv)
 {
+	spdlog::set_level(spdlog::level::debug);
+
 	std::string inputFile;
 	std::string outputFile;
 	float scale;
