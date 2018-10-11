@@ -1,7 +1,7 @@
 CC=g++
-CFLAGS=-std=c++11
+CFLAGS=-std=c++11 -I..
 O_FILES=tests-main.o tests-RGBColor.o tests-PPMImage.o tests-Vector3D.o tests-Scene.o
-CPP_FILES=../RGBColor.cpp ../PPMImage.cpp ../Vector3D.cpp ../Scene.cpp ../Camera.cpp
+CPP_FILES=../RGBColor.cpp ../PPMImage.cpp ../Vector3D.cpp ../Scene.cpp ../Camera.cpp ../Light.cpp ../Sphere.cpp ../Plane.cpp
 
 tests: $(O_FILES) $(CPP_FILES)
 	$(CC) $(CFLAGS) -o tests $(O_FILES) $(CPP_FILES)

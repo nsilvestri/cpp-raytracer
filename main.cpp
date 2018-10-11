@@ -68,7 +68,6 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y)
 //
 int main(int argc, char **argv)
 {
-	spdlog::set_level(spdlog::level::debug);
 
 	std::string inputFile;
 	std::string outputFile;

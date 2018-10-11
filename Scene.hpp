@@ -10,7 +10,7 @@ class Scene
 {
     private:
         Camera camera;
-        std::vector<Surface> surfaces;
+        std::vector<Surface*> surfaces;
         std::vector<Light> lights;
 
     public:

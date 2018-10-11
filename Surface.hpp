@@ -1,13 +1,22 @@
 #pragma once
 
 #include "Ray3D.hpp"
+#include "RGBColor.hpp"
 #include "IntersectionRecord.hpp"
 
 class Surface
 {
     private:
+        RGBColor ambient;
+        RGBColor diffuse;
+        RGBColor specular;
+    public:        
+        virtual bool intersect(IntersectionRecord &result, Ray3D r) = 0;
 
-    public:
-        virtual bool intersect(IntersectionRecord &result, Ray3D r);
+        void setAmbient(RGBColor ambient);
+        void setDiffuse(RGBColor diffuse);
+        void setSpecular(RGBColor specular);
+
+
 };
 

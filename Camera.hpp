@@ -38,6 +38,9 @@ class Camera
         Vector3D getPosition() const;
         Vector3D getImagePosition() const;
         Vector3D getUp() const;
+        float getFov() const;
+        int getHorizontalResolution() const;
+        int getVerticalResolution() const;
 
         Ray3D** generateRays() const;
 };

@@ -13,8 +13,8 @@ class Sphere : public Surface
         Sphere();
         Sphere(Vector3D position, float radius);
 
-        Vector3D getPosition();
-        float getRadius();
+        Vector3D getPosition() const;
+        float getRadius() const;
 
         void setPosition(Vector3D position);
         void setRadius(float radius);

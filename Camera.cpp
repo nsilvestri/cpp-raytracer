@@ -92,3 +92,18 @@ Vector3D Camera::getUp() const
 {
     return this->up;
 }
+
+float Camera::getFov() const
+{
+    return this->fov;
+}
+
+int Camera::getHorizontalResolution() const
+{
+    return this->horizontalResolution;
+}
+
+int Camera::getVerticalResolution() const
+{
+    return this->verticalResolution;
+}

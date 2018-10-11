@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 class Vector3D
 {
     private:
@@ -25,6 +27,8 @@ class Vector3D
         Vector3D operator+(const Vector3D& rhs);
         Vector3D operator-(const Vector3D& rhs);
         Vector3D operator*(float scalar);
+        friend std::ostream& operator<<(std::ostream &stream, const Vector3D& v);
+
         float dot(Vector3D other);
         Vector3D cross(Vector3D other);
 };

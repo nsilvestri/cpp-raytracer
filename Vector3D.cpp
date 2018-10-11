@@ -1,4 +1,5 @@
 #include <math.h>
+#include <iostream>
 
 #include "Vector3D.hpp"
 
@@ -133,6 +134,11 @@ Vector3D Vector3D::operator*(float scalar)
     newVec.setZ(newVec.getZ() * scalar);
 
     return newVec;
+}
+
+std::ostream& operator<<(std::ostream& stream, const Vector3D& v)
+{
+    return stream << "Vector3D(" << v.getX() << ", " << v.getY() << ", " << v.getZ() << ")";
 }
 
 /**
