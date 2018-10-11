@@ -1,16 +1,21 @@
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <cstring>
 
 #include "Scene.hpp"
+#include "Camera.hpp"
 #include "Surface.hpp"
+#include "Light.hpp"
 #include "Sphere.hpp"
 #include "Plane.hpp"
 
 Scene::Scene()
 {
     this->camera = Camera();
+    this->surfaces = std::vector<Surface>();
+    this->lights = std::vector<Light>();
 }
 
 void Scene::readSceneFile(std::string filepath)
@@ -39,6 +44,9 @@ void Scene::readSceneFile(std::string filepath)
             Vector3D cameraPosition = Vector3D(atof(tokens.at(1).c_str()),
                                                atof(tokens.at(2).c_str()),
                                                atof(tokens.at(3).c_str()));
+            std::cout << cameraPosition.getX() << std::endl;
+            std::cout << cameraPosition.getY() << std::endl;
+            std::cout << cameraPosition.getZ() << std::endl;
             this->camera.setPosition(cameraPosition);
         }
         // set lookat vector (image pos)

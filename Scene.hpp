@@ -17,4 +17,4 @@ class Scene
         Scene();
 
         void readSceneFile(std::string filepath);
-}
+};

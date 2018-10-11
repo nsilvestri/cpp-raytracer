@@ -26,7 +26,7 @@ class Camera
         Camera(Vector3D position, Vector3D imageLocation, Vector3D up,
                 int horizontalResolution, int verticalResolution);
         Camera();
-        Camera(const Vector3D& c);
+        Camera(const Camera& c);
 
         void setPosition(Vector3D position);
         void setImagePosition(Vector3D imagePosition);

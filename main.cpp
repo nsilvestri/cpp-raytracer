@@ -17,6 +17,9 @@
 #include <string>
 #include <fstream>
 
+// logging includes
+// #include "spdlog/spdlog.h"
+
 // custom includes
 #include "PPMImage.hpp"
 

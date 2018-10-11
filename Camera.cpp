@@ -48,6 +48,16 @@ void Camera::setFov(float fov)
     this->fov = fov;
 }
 
+void Camera::setHorizontalResolution(int horizontalResolution)
+{
+    this->horizontalResolution = horizontalResolution;
+}
+
+void Camera::setVerticalResolution(int verticalResolution)
+{
+    this->verticalResolution = verticalResolution;
+}
+
 /**
  * Private method to calculate u, v, and w of the orthnormal image basis. Each
  * vector is defined as follows:
@@ -66,4 +76,19 @@ void Camera::calculateUVW()
     this->w.normalize();
     this->u.normalize();
     this->v.normalize();
+}
+
+Vector3D Camera::getPosition() const
+{
+    return this->position;
+}
+
+Vector3D Camera::getImagePosition() const
+{
+    return this->imagePosition;
+}
+
+Vector3D Camera::getUp() const
+{
+    return this->up;
 }

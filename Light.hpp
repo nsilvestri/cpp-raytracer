@@ -12,4 +12,4 @@ class Light
     public:
         Light(Vector3D position, RGBColor color);
         
-}
+};
