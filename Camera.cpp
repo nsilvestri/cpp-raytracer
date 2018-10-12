@@ -1,4 +1,6 @@
 #include "Camera.hpp"
+#include "Vector3D.hpp"
+#include "Ray3D.hpp"
 
 Camera::Camera(Vector3D position, Vector3D imagePosition, Vector3D up,
         int horizontalResolution, int verticalResolution)
@@ -43,21 +45,6 @@ void Camera::defineUp(Vector3D up)
     calculateUVW();
 }
 
-void Camera::setFov(float fov)
-{
-    this->fov = fov;
-}
-
-void Camera::setHorizontalResolution(int horizontalResolution)
-{
-    this->horizontalResolution = horizontalResolution;
-}
-
-void Camera::setVerticalResolution(int verticalResolution)
-{
-    this->verticalResolution = verticalResolution;
-}
-
 /**
  * Private method to calculate u, v, and w of the orthnormal image basis. Each
  * vector is defined as follows:
@@ -76,6 +63,25 @@ void Camera::calculateUVW()
     this->w.normalize();
     this->u.normalize();
     this->v.normalize();
+}
+
+/**
+ * Sets the field of view of this camera object.
+ * @param fov the new field of view for this camera
+ */
+void Camera::setFov(float fov)
+{
+    this->fov = fov;
+}
+
+void Camera::setHorizontalResolution(int horizontalResolution)
+{
+    this->horizontalResolution = horizontalResolution;
+}
+
+void Camera::setVerticalResolution(int verticalResolution)
+{
+    this->verticalResolution = verticalResolution;
 }
 
 Vector3D Camera::getPosition() const
@@ -106,4 +112,41 @@ int Camera::getHorizontalResolution() const
 int Camera::getVerticalResolution() const
 {
     return this->verticalResolution;
+}
+
+Ray3D** Camera::generateRays() const
+{
+    // Create 2D array of arrays from 1D block of rays memory
+	Ray3D* rays1d = new Ray3D[this->getHorizontalResolution() *
+                                   this->getVerticalResolution()];
+    Ray3D** rays2d = new Ray3D[this->getVerticalResolution()];
+    rays2d[0] = rays1d;
+	for (int y = 1; y < this->getVerticalResolution(); y++)
+	{
+		rays2d[y] = rays2d[y - 1] + this->getHorizontalResolution();
+	}
+
+    // calculate ray for every pixel in image
+    for (int c = 0; c < this->getHorizontalResolution(); c++)
+    {
+        for (int r = 0; r < this->getVerticalResolution(); r++)
+        {
+            // u = l + (r - l)(c + 0.5)/horizRes
+            float uScalar = this->left + (this->right - this->left) * (c + 0.5) / 
+                this->getHorizontalResolution();
+            // v = b + (t - b)(r + 0.5)/vertRes
+            float vScalar = this->bottom + (this->top - this->bottom) * (r + 0.5) / 
+                this->getVerticalResolution();
+
+            // ray.direction = -dW + uU + vV
+            Vector3D direction = (this->w * (-1 * this->getFov())) +
+                                 (this->u * uScalar) +
+                                 (this->v * vScalar);
+            // ray.origin = cameraPosition
+            Vector3D origin = this->getPosition();
+            Ray3D ray = Ray3D(direction, origin);
+            rays2d[r][c] = ray;
+        }
+    }
+    return rays2d;
 }

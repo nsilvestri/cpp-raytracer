@@ -16,11 +16,17 @@ class Camera
         int horizontalResolution;
         int verticalResolution;
 
-        float imageDistance;
+        
         Vector3D u;
         Vector3D v;
         Vector3D w;
         void calculateUVW();
+        
+        float imageDistance;
+        float top;
+        float bottom;
+        float left;
+        float right;
         
     public:
         Camera(Vector3D position, Vector3D imageLocation, Vector3D up,

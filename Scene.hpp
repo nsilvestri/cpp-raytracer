@@ -15,6 +15,6 @@ class Scene
 
     public:
         Scene();
-
         void readSceneFile(std::string filepath);
+        RGBColor** capture();
 };
