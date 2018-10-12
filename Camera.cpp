@@ -3,13 +3,17 @@
 #include "Ray3D.hpp"
 
 Camera::Camera(Vector3D position, Vector3D imagePosition, Vector3D up,
-        int horizontalResolution, int verticalResolution)
+        int horizontalResolution, int verticalResolution, float fov)
 {
     this->setPosition(position);
     this->setImagePosition(imagePosition);
     this->defineUp(up);
+
     this->setHorizontalResolution(horizontalResolution);
     this->setVerticalResolution(verticalResolution);
+    this->setFov(fov);
+    // TODO: calculate the locations of top, bottom, left, and right according
+    //       to the UVW space.
 }
 
 Camera::Camera()
@@ -114,6 +118,14 @@ int Camera::getVerticalResolution() const
     return this->verticalResolution;
 }
 
+/**
+ * Calculates the rays to be cast from the camera through the image.
+ * 
+ * @return A 2D array of Ray3D objects, where the location of each Ray3D in the
+ * array corresponds to the pixel in the image. The array returned has the same
+ * dimensions as the image, as specified in getHorizontalResolution() and
+ * getVerticalResolution().
+ */
 Ray3D** Camera::generateRays() const
 {
     // Create 2D array of arrays from 1D block of rays memory
