@@ -170,3 +170,8 @@ void RGBColor::setRGB(float r, float g, float b)
     this->setG(g);
     this->setB(b);
 }
+
+std::ostream& operator<<(std::ostream& stream, const RGBColor& r)
+{
+    return stream << "RGBColor(" << r.getR() << ", " << r.getG() << ", " << r.getB() << ")";
+}

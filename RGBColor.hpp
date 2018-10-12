@@ -23,5 +23,7 @@ class RGBColor
         void setRGB(float r, float g, float b);
         
         static float clamp(float f);
+
+        friend std::ostream& operator<<(std::ostream& stream, const RGBColor& r);
 };
 

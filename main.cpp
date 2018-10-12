@@ -63,7 +63,6 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y)
 //
 int main(int argc, char **argv)
 {
-
 	std::string inputFile;
 	std::string outputFile;
 	float scale;

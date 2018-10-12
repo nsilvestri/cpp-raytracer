@@ -10,6 +10,7 @@ set(source_files
   PPMImage.cpp
   RGBColor.cpp
   Vector3D.cpp
+  easylogging++.cc
 )
 
 message(${SDL2_INCLUDE_DIR})
