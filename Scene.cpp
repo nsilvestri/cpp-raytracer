@@ -11,11 +11,6 @@
 #include "Sphere.hpp"
 #include "Plane.hpp"
 
-/* spdlog includes */
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
-auto logger = spdlog::stdout_color_mt("logger");
-
 Scene::Scene()
 {
     this->camera = Camera();
@@ -50,10 +45,6 @@ void Scene::readSceneFile(std::string filepath)
                                                atof(tokens.at(2).c_str()),
                                                atof(tokens.at(3).c_str()));
 
-            std::stringstream sstream;
-            sstream << cameraPosition;
-            logger->debug("Set camera position to " + sstream.str());
-
             this->camera.setPosition(cameraPosition);
         }
         // set lookat vector (image pos)
@@ -63,10 +54,6 @@ void Scene::readSceneFile(std::string filepath)
                                               atof(tokens.at(2).c_str()),
                                               atof(tokens.at(3).c_str()));
             this->camera.setImagePosition(imagePosition);
-
-            std::stringstream sstream;
-            sstream << imagePosition;
-            logger->debug("Set image position to " + sstream.str());
         }
         // define up vector of camera
         else if (tokens.at(0).compare("u") == 0)
@@ -75,27 +62,17 @@ void Scene::readSceneFile(std::string filepath)
                                    atof(tokens.at(2).c_str()),
                                    atof(tokens.at(3).c_str()));
             this->camera.defineUp(up);
-            
-            std::stringstream sstream;
-            sstream << up;
-            logger->debug("Set up vector to " + sstream.str());
         }
         // set camera FOV
         else if (tokens.at(0).compare("f") == 0)
         {
             this->camera.setFov(atof(tokens.at(1).c_str()));
-            logger->debug("Set camera FOV to " + std::to_string(this->camera.getFov()));
         }
         // set image dimensions
         else if (tokens.at(0).compare("i") == 0)
         {
             this->camera.setHorizontalResolution(atoi(tokens.at(1).c_str()));
             this->camera.setVerticalResolution(atoi(tokens.at(2).c_str()));
-            
-            logger->debug("Set image dimensions to " +
-                    std::to_string(this->camera.getHorizontalResolution()) +
-                    "x" +
-                    std::to_string(this->camera.getVerticalResolution()));
         }
         // add light to scene
         else if (tokens.at(0).compare("L") == 0)

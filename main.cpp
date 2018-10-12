@@ -17,11 +17,6 @@
 #include <string>
 #include <fstream>
 
-// logging includes
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
-auto logger = spdlog::stdout_color_mt("logger");
-
 // custom includes
 #include "PPMImage.hpp"
 

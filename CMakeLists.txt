@@ -3,7 +3,6 @@ project(prog03)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
-set(SPDLOG_DIR ${CMAKE_SOURCE_DIR})
 find_package(SDL2)
 
 set(source_files
@@ -18,7 +17,6 @@ message(${SDL2_LIBRARY})
 
 include_directories(
   ${SDL2_INCLUDE_DIR}
-  ${SPDLOG_DIR}
 )
 
 add_executable(
