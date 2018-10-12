@@ -15,7 +15,6 @@ class Camera
         float fov;
         int horizontalResolution;
         int verticalResolution;
-
         
         Vector3D u;
         Vector3D v;

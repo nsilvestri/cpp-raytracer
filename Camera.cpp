@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "Camera.hpp"
 #include "Vector3D.hpp"
 #include "Ray3D.hpp"
@@ -12,8 +14,11 @@ Camera::Camera(Vector3D position, Vector3D imagePosition, Vector3D up,
     this->setHorizontalResolution(horizontalResolution);
     this->setVerticalResolution(verticalResolution);
     this->setFov(fov);
-    // TODO: calculate the locations of top, bottom, left, and right according
-    //       to the UVW space.
+    
+    this->top = (imagePosition - position).length() * tan((fov / 2) * 3.14159265 / 2);
+    this->bottom = -top;
+    this->left = bottom * ((float) horizontalResolution / verticalResolution);
+    this->right = -left;
 }
 
 Camera::Camera()
@@ -23,7 +28,6 @@ Camera::Camera()
 
 Camera::Camera(const Camera& c)
 {
-    this->setPosition(c.getPosition());
     this->setImagePosition(c.getImagePosition());
     this->defineUp(c.getUp());
 }
