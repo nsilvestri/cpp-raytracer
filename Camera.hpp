@@ -49,5 +49,6 @@ class Camera
         int getVerticalResolution() const;
 
         Ray3D** generateRays();
+        Ray3D** generateOrthographicRays();
 };
 

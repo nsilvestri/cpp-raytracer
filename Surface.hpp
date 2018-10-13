@@ -18,5 +18,9 @@ class Surface
         void setDiffuse(RGBColor diffuse);
         void setSpecular(RGBColor specular);
         void setPhong(float phong);
+
+        RGBColor getAmbient();
+        RGBColor getDiffuse();
+        RGBColor getSpecular();
 };
 

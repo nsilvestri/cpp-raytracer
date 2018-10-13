@@ -50,7 +50,7 @@ void Scene::readSceneFile(std::string filepath)
                                                atof(tokens.at(3).c_str()));
             this->camera.setPosition(cameraPosition);
 
-            LOG(DEBUG) << "Set camera position to " << cameraPosition;
+            LOG(INFO) << "Set camera position to " << cameraPosition;
         }
         // set lookat vector (image pos)
         else if (tokens.at(0).compare("l") == 0)
@@ -60,7 +60,7 @@ void Scene::readSceneFile(std::string filepath)
                                               atof(tokens.at(3).c_str()));
             this->camera.setImagePosition(imagePosition);
             
-            LOG(DEBUG) << "Set image position to " << imagePosition;
+            LOG(INFO) << "Set image position to " << imagePosition;
         }
         // define up vector of camera
         else if (tokens.at(0).compare("u") == 0)
@@ -69,14 +69,14 @@ void Scene::readSceneFile(std::string filepath)
                                    atof(tokens.at(2).c_str()),
                                    atof(tokens.at(3).c_str()));
             this->camera.defineUp(up);
-            LOG(DEBUG) << "Defined camera's up to " << up;
+            LOG(INFO) << "Defined camera's up to " << up;
         }
         // set camera FOV
         else if (tokens.at(0).compare("f") == 0)
         {
             this->camera.setFov(atof(tokens.at(1).c_str()));
             
-            LOG(DEBUG) << "Set camera FOV to " << this->camera.getFov();
+            LOG(INFO) << "Set camera FOV to " << this->camera.getFov();
         }
         // set image dimensions
         else if (tokens.at(0).compare("i") == 0)
@@ -84,7 +84,7 @@ void Scene::readSceneFile(std::string filepath)
             this->camera.setHorizontalResolution(atoi(tokens.at(1).c_str()));
             this->camera.setVerticalResolution(atoi(tokens.at(2).c_str()));
 
-            LOG(DEBUG) << "Set image resolution to " << 
+            LOG(INFO) << "Set image resolution to " << 
                     this->camera.getHorizontalResolution() <<
                     "x" <<
                     this->camera.getVerticalResolution();
@@ -109,7 +109,7 @@ void Scene::readSceneFile(std::string filepath)
                                            atof(tokens1.at(1).c_str()),
                                            atof(tokens1.at(2).c_str()));
             this->lights.push_back(Light(lightPosition, lightColor));
-            LOG(DEBUG) << "Added Light at " << lightPosition <<
+            LOG(INFO) << "Added Light at " << lightPosition <<
                     " of color " << lightColor;
         }
         // add Sphere to scene
@@ -173,10 +173,9 @@ void Scene::readSceneFile(std::string filepath)
             newSphere->setPhong(atof(line.c_str()));
 
             this->surfaces.push_back(newSphere);
-            LOG(DEBUG) << "Added sphere at " << spherePosition <<
+            LOG(INFO) << "Added sphere at " << spherePosition <<
                     " of radius " << radius;
         }
-
         // add light to scene
         else if (tokens.at(0).compare("P") == 0)
         {
@@ -238,7 +237,7 @@ void Scene::readSceneFile(std::string filepath)
             newPlane->setPhong(atof(line.c_str()));
             
             this->surfaces.push_back(newPlane);
-            LOG(DEBUG) << "Added plane at " << pointPosition <<
+            LOG(INFO) << "Added plane at " << pointPosition <<
                     " with normal " << planeNormal;
         }
         // error handling for unknown line identifier
@@ -249,18 +248,27 @@ void Scene::readSceneFile(std::string filepath)
     }
 }
 
+/**
+ * Generates and returns a PPMImage object representing the view from the Camera
+ * object in this scene.
+ * @return a PPMImage representing the view from the camera in this scene.
+ */
 PPMImage Scene::capture()
 {
+    // just get dimensions now, saves horizontal space later
     int imageRows = this->camera.getVerticalResolution();
     int imageCols = this->camera.getHorizontalResolution();
+
+    // create the array of RGBColor data. 1d array with 2d-array indexes
     RGBColor** pixels2d = new RGBColor*[imageRows];
 	RGBColor* pixels1d = new RGBColor[imageRows * imageCols];
 	pixels2d[0] = pixels1d;
 	for (int y = 1; y < imageRows; y++)
 	{
-		pixels2d[y] = pixels2d[y - 1] + this->camera.getHorizontalResolution();
+		pixels2d[y] = pixels2d[y - 1] + imageCols;
 	}
 
+    // create the rays, and for each ray check that it
     Ray3D** rays = this->camera.generateRays();
     for (int r = 0; r < imageRows; r++)
     {
@@ -274,7 +282,8 @@ PPMImage Scene::capture()
 
                 if (intersected)
                 {
-                    pixels2d[r][c] = RGBColor(1, 1, 1);
+                    pixels2d[r][c] = surfaces.at(s)->getDiffuse();
+                    break;
                 }
                 else
                 {

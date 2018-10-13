@@ -93,7 +93,7 @@ int main(int argc, char **argv)
 	scene.readSceneFile(inputFile);
 	LOG(INFO) << "Capturing image scene...";
 	PPMImage image = scene.capture();
-	LOG(INFO) << "Finished!";
+	LOG(INFO) << "Finished capturing image.";
 
 	//Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)

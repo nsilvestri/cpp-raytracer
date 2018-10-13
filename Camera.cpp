@@ -70,9 +70,9 @@ void Camera::calculateUVW()
     this->u.normalize();
     this->v.normalize();
 
-    LOG(DEBUG) << "u = " << u;
-    LOG(DEBUG) << "v = " << v;
-    LOG(DEBUG) << "w = " << w;
+    LOG(INFO) << "u = " << u;
+    LOG(INFO) << "v = " << v;
+    LOG(INFO) << "w = " << w;
 }
 
 /**
@@ -148,18 +148,19 @@ Ray3D** Camera::generateRays()
 	}
 
     // calculate ray for every pixel in image
+
+    // d = (imagePos - camPos).length
+    float dScalar = (this->getImagePosition() - this->getPosition()).length();
     for (int r = 0; r < this->getVerticalResolution(); r++)
     {
         for (int c = 0; c < this->getHorizontalResolution(); c++)
         {
-            // d = (imagePos - camPos).length
-            float dScalar = (this->getImagePosition() - this->getPosition()).length();
             // u = l + (r - l)(c + 0.5)/horizRes
             float uScalar = (this->left + (this->right - this->left) * (c + 0.5)) / 
-                this->getHorizontalResolution();
+                    this->getHorizontalResolution();
             // v = b + (t - b)(r + 0.5)/vertRes
             float vScalar = (this->bottom + (this->top - this->bottom) * (r + 0.5)) / 
-                this->getVerticalResolution();
+                    this->getVerticalResolution();
 
             // ray.direction = -dW + uU + vV
             Vector3D direction = (this->w * (-1 * dScalar)) +
@@ -174,14 +175,65 @@ Ray3D** Camera::generateRays()
     return rays2d;
 }
 
+/**
+ * Calculates the rays to be cast from the camera through the image.
+ * 
+ * @return A 2D array of Ray3D objects, where the location of each Ray3D in the
+ * array corresponds to the pixel in the image. The array returned has the same
+ * dimensions as the image, as specified in getHorizontalResolution() and
+ * getVerticalResolution().
+ */
+Ray3D** Camera::generateOrthographicRays()
+{
+    // calculate corners of image
+    this->calculateImagePoints();
+
+    // Create 2D array of arrays from 1D block of rays memory
+	Ray3D* rays1d = new Ray3D[this->getHorizontalResolution() *
+                                   this->getVerticalResolution()];
+    Ray3D** rays2d = new Ray3D*[this->getVerticalResolution()];
+    rays2d[0] = rays1d;
+	for (int y = 1; y < this->getVerticalResolution(); y++)
+	{
+		rays2d[y] = rays2d[y - 1] + this->getHorizontalResolution();
+	}
+
+    // calculate ray for every pixel in image
+    for (int r = 0; r < this->getVerticalResolution(); r++)
+    {
+        for (int c = 0; c < this->getHorizontalResolution(); c++)
+        {
+            // u = l + (r - l)(c + 0.5)/horizRes
+            float uScalar = (this->left + (this->right - this->left) * (c + 0.5)) / 
+                    this->getHorizontalResolution();
+            // v = b + (t - b)(r + 0.5)/vertRes
+            float vScalar = (this->bottom + (this->top - this->bottom) * (r + 0.5)) / 
+                    this->getVerticalResolution();
+
+            // ray.direction = -dW + uU + vV
+            Vector3D direction = this->w * -1;
+            // ray.origin = cameraPosition
+            Vector3D origin = (this->getPosition() +
+                              (this->u * uScalar) +
+                              (this->v * vScalar));
+            Ray3D ray = Ray3D(origin, direction);
+            rays2d[r][c] = ray;
+        }
+    }
+    return rays2d;
+}
+
+/**
+ * Calculates the location of the edges of the image in UVW space.
+ */
 void Camera::calculateImagePoints()
 {
     this->top = (imagePosition - position).length() * tan((fov / 2) * 3.14159265 / 180);
     this->bottom = -top;
-    this->left = bottom * ((float) horizontalResolution / verticalResolution);
-    this->right = -left;
+    this->right = top * ((float) horizontalResolution / verticalResolution);
+    this->left = -right;
 
-    LOG(DEBUG) << "Image corners are at " <<
+    LOG(INFO) << "Image corners are at " <<
             "t = " << this->top << ", " <<
             "b = " << this->bottom << ", " <<
             "l = " << this->left << ", " <<

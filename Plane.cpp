@@ -36,5 +36,7 @@ void Plane::setNormal(Vector3D normal)
 
 bool Plane::intersect(IntersectionRecord& result, Ray3D r)
 {
-    return false;
+    float t = ((this->getPosition() - r.getOrigin()).dot(this->getNormal())) /
+            (r.getDirection().dot(this->getNormal()));
+    return t >= 0;
 }

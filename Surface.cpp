@@ -20,3 +20,18 @@ void Surface::setPhong(float phong)
 {
     this->phong = phong;
 }
+
+RGBColor Surface::getAmbient()
+{
+    return this->ambient;
+}
+
+RGBColor Surface::getDiffuse()
+{
+    return this->diffuse;
+}
+
+RGBColor Surface::getSpecular()
+{
+    return this->specular;
+}
