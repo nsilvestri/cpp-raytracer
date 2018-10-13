@@ -16,7 +16,7 @@ class PPMImage
         void regenerateData();
     public:
         PPMImage(std::string filepath);
-        PPMImage(RGBColor* pixels, int width, int height);
+        PPMImage(RGBColor* pixels, int rows, int cols);
         ~PPMImage();
         void rescale(float gain, float bias, float gamma);
         unsigned char* getData();

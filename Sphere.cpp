@@ -42,11 +42,12 @@ bool Sphere::intersect(IntersectionRecord& result, Ray3D ray)
     float quadraticB = (ray.getDirection() * 2).dot(
             ray.getOrigin() - this->getPosition());
     float quadraticC = (ray.getOrigin() - this->getPosition()).dot(
-            (ray.getOrigin() - this->getPosition())) - (this->getRadius() * this->getRadius());
+            (ray.getOrigin() - this->getPosition())) -
+            (this->getRadius() * this->getRadius());
 
     // D = B^2-4AC
     float discriminant = (quadraticB * quadraticB) - (4 * quadraticA * quadraticC);
-    std::cout << ray << ": " << discriminant << std::endl;
+    // std::cout << ray << ": " << discriminant << std::endl;
     if (discriminant < 0)
     {
         return false;

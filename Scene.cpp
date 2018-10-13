@@ -283,6 +283,6 @@ PPMImage Scene::capture()
             }
         }
     }
-    PPMImage image = PPMImage(*pixels2d, imageCols, imageRows);
+    PPMImage image = PPMImage(*pixels2d, imageRows, imageCols);
     return image;
 }
