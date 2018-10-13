@@ -38,15 +38,16 @@ void Sphere::setRadius(float radius)
 
 bool Sphere::intersect(IntersectionRecord& result, Ray3D ray)
 {
-    float quadraticA = ray.getDirection().dot(ray.getDirection());
-    float quadraticB = (ray.getDirection() * 2).dot(
+    // a, b, c are the A, B, C in the quadtratic equation
+    float a = ray.getDirection().dot(ray.getDirection());
+    float b = (ray.getDirection() * 2).dot(
             ray.getOrigin() - this->getPosition());
-    float quadraticC = (ray.getOrigin() - this->getPosition()).dot(
+    float c = (ray.getOrigin() - this->getPosition()).dot(
             (ray.getOrigin() - this->getPosition())) -
             (this->getRadius() * this->getRadius());
 
     // D = B^2-4AC
-    float discriminant = (quadraticB * quadraticB) - (4 * quadraticA * quadraticC);
+    float discriminant = (b * b) - (4 * a * c);
     // std::cout << ray << ": " << discriminant << std::endl;
     if (discriminant < 0)
     {

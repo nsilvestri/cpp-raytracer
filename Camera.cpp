@@ -168,12 +168,6 @@ Ray3D** Camera::generateRays()
             // ray.origin = cameraPosition
             Vector3D origin = this->getPosition();
             Ray3D ray = Ray3D(origin, direction);
-
-            if (r == 0)
-            {
-                std::cout << ray << std::endl;
-            }
-
             rays2d[r][c] = ray;
         }
     }

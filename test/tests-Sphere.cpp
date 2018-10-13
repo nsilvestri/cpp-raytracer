@@ -14,7 +14,7 @@ TEST_CASE("Test intersection", "[Sphere]")
     Ray3D alongY = Ray3D(Vector3D(0, 100, 0), Vector3D(0, 1, 0));
     Ray3D alongZ = Ray3D(Vector3D(0, 0, 100), Vector3D(0, 0, 1));
     Ray3D graze = Ray3D(Vector3D(-1, 1, 0), Vector3D(1, 0, 0));
-    Ray3D miss = Ray3D(Vector3D(-1, 1, 0), Vector3D(0, 2, 0));
+    Ray3D miss = Ray3D(Vector3D(-1, 1, 0), Vector3D(0, 1, 0));
 
     REQUIRE(s.intersect(ir, alongX));
     REQUIRE(s.intersect(ir, alongY));
