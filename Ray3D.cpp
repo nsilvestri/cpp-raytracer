@@ -1,3 +1,4 @@
+#include <iostream>
 #include <math.h>
 
 #include "Ray3D.hpp"
@@ -76,7 +77,18 @@ void Ray3D::setDirection(Vector3D direction)
  */
 bool Ray3D::isPointOn(Vector3D point) const
 {
-    // TODO
+    Vector3D pointDirection = point - this->getOrigin();
+    float xScale = point.getX() / this->getDirection().getX();
+    std::cout << xScale << std::endl;
+    float yScale = point.getY() / this->getDirection().getY();
+    std::cout << yScale << std::endl;
+    float zScale = point.getZ() / this->getDirection().getZ();
+    std::cout << zScale << std::endl;
+
+    /* a point must be on the origin or in the direction of ray.direction
+     * relative to the origin, and all scales must be equal
+     */
+    return (xScale >= 0 && xScale == yScale && yScale == zScale);
 }
 
 std::ostream& operator<<(std::ostream &stream, const Ray3D& r)

@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=-std=c++11
-O_FILES=tests-main.o tests-RGBColor.o tests-PPMImage.o tests-Vector3D.o tests-Scene.o tests-Sphere.o
+O_FILES=tests-main.o tests-RGBColor.o tests-PPMImage.o tests-Vector3D.o tests-Scene.o tests-Sphere.o tests-Ray3D.o
 CPP_FILES=../RGBColor.cpp ../PPMImage.cpp ../Vector3D.cpp ../Ray3D.cpp ../Scene.cpp ../Camera.cpp ../Light.cpp ../Sphere.cpp ../Plane.cpp ../Surface.cpp ../easylogging++.cc
 
 tests: $(O_FILES) $(CPP_FILES)
@@ -23,6 +23,9 @@ tests-Scene.o: tests-Scene.cpp
 
 tests-Sphere.o: tests-Sphere.cpp
 	$(CC) $(CFLAGS) -c tests-Sphere.cpp
+
+tests-Ray3D.o: tests-Ray3D.cpp
+	$(CC) $(CFLAGS) -c tests-Ray3D.cpp
 
 
 
