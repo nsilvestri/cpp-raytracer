@@ -12,6 +12,8 @@
 #include "Light.hpp"
 #include "Sphere.hpp"
 #include "Plane.hpp"
+#include "RGBColor.hpp"
+#include "PPMImage.hpp"
 
 Scene::Scene()
 {
@@ -245,4 +247,42 @@ void Scene::readSceneFile(std::string filepath)
             std::cerr << "Unknown line format in scene file. Skipping line." << std::endl;
         }
     }
+}
+
+PPMImage Scene::capture()
+{
+    int imageRows = this->camera.getVerticalResolution();
+    int imageCols = this->camera.getHorizontalResolution();
+    RGBColor** pixels2d = new RGBColor*[imageRows];
+	RGBColor* pixels1d = new RGBColor[imageRows * imageCols];
+	pixels2d[0] = pixels1d;
+	for (int y = 1; y < imageRows; y++)
+	{
+		pixels2d[y] = pixels2d[y - 1] + this->camera.getHorizontalResolution();
+	}
+
+    Ray3D** rays = this->camera.generateRays();
+    for (int r = 0; r < imageRows; r++)
+    {
+        for (int c = 0; c < imageCols; c++)
+        {
+            Ray3D ray = rays[r][c];
+            for (int s = 0; s < surfaces.size(); s++)
+            {
+                IntersectionRecord ir;
+                bool intersected = surfaces.at(s)->intersect(ir, ray);
+
+                if (intersected)
+                {
+                    pixels2d[r][c] = RGBColor(1, 1, 1);
+                }
+                else
+                {
+                    pixels2d[r][c] = RGBColor(0, 0, 0);
+                }
+            }
+        }
+    }
+    PPMImage image = PPMImage(*pixels2d, imageCols, imageRows);
+    return image;
 }

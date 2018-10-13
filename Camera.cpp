@@ -135,7 +135,7 @@ Ray3D** Camera::generateRays() const
     // Create 2D array of arrays from 1D block of rays memory
 	Ray3D* rays1d = new Ray3D[this->getHorizontalResolution() *
                                    this->getVerticalResolution()];
-    Ray3D** rays2d = new Ray3D[this->getVerticalResolution()];
+    Ray3D** rays2d = new Ray3D*[this->getVerticalResolution()];
     rays2d[0] = rays1d;
 	for (int y = 1; y < this->getVerticalResolution(); y++)
 	{
@@ -143,9 +143,9 @@ Ray3D** Camera::generateRays() const
 	}
 
     // calculate ray for every pixel in image
-    for (int c = 0; c < this->getHorizontalResolution(); c++)
+    for (int r = 0; r < this->getVerticalResolution(); r++)
     {
-        for (int r = 0; r < this->getVerticalResolution(); r++)
+        for (int c = 0; c < this->getHorizontalResolution(); c++)
         {
             // u = l + (r - l)(c + 0.5)/horizRes
             float uScalar = this->left + (this->right - this->left) * (c + 0.5) / 

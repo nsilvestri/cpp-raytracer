@@ -19,6 +19,11 @@
 
 // custom includes
 #include "PPMImage.hpp"
+#include "Scene.hpp"
+
+// logging includes
+#include "easylogging++.h"
+INITIALIZE_EASYLOGGINGPP
 
 /**
  * Log an SDL error with some error message to the output stream of our
@@ -79,12 +84,15 @@ int main(int argc, char **argv)
 	else
 	{
 		std::cout << "Usage:" << std::endl;
-		std::cout << "  ./prog01 path_to_ppm [(output_file scale)]" << std::endl;
+		std::cout << "  ./prog01 scene_file output_ppm" << std::endl;
 		exit(1);
 	}
 
-	// create PPMImage object with filename argument
-	PPMImage* image = new PPMImage(inputFile);
+	Scene scene = Scene();
+	LOG(INFO) << "Reading scene file " << inputFile;
+	scene.readSceneFile(inputFile);
+	LOG(INFO) << "Capturing image scene";
+	PPMImage image = scene.capture();
 
 	//Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -94,7 +102,7 @@ int main(int argc, char **argv)
 	}
 
 	//Setup our window and renderer
-	SDL_Window *window = SDL_CreateWindow("Basic SDL Test", 100, 100, image->getCols(), image->getRows(), SDL_WINDOW_SHOWN);
+	SDL_Window *window = SDL_CreateWindow("Basic SDL Test", 100, 100, image.getCols(), image.getRows(), SDL_WINDOW_SHOWN);
 	if (window == NULL)
 	{
 		logSDLError(std::cout, "CreateWindow");
@@ -116,9 +124,9 @@ int main(int argc, char **argv)
 
 	//Initialize the texture.  SDL_PIXELFORMAT_RGB24 specifies 3 bytes per
 	//pixel, one per color channel
-	background = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STATIC, image->getCols(), image->getRows());
+	background = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STATIC, image.getCols(), image.getRows());
 	//Copy the raw data array into the texture.
-	SDL_UpdateTexture(background, NULL, image->getData(), 3 * image->getCols());
+	SDL_UpdateTexture(background, NULL, image.getData(), 3 * image.getCols());
 	if (background == NULL)
 	{
 		logSDLError(std::cout, "CreateTextureFromSurface");
@@ -208,20 +216,20 @@ int main(int argc, char **argv)
 						break;
 					case SDLK_c:
 						std::cout << "C pressed" << std::endl;
-						image->convolve(kernel, 3, 3);
+						image.convolve(kernel, 3, 3);
 						break;
 					case SDLK_RETURN:
-						image->write(outputFile);
+						image.write(outputFile);
 						break;
 					default:
 						break;
         		}
-				image->rescale(gain, bias, gamma);
+				image.rescale(gain, bias, gamma);
 			}
 		}
 
 		//Update the texture, assuming data has changed.
-		SDL_UpdateTexture(background, NULL, image->getData(), 3 * image->getCols());
+		SDL_UpdateTexture(background, NULL, image.getData(), 3 * image.getCols());
 		//display the texture on the screen
 		renderTexture(background, renderer, 0, 0);
 		//Update the screen

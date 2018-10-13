@@ -7,10 +7,21 @@ find_package(SDL2)
 
 set(source_files
   main.cpp
+  easylogging++.cc
+  
   PPMImage.cpp
   RGBColor.cpp
+
+  Scene.cpp
+  Camera.cpp
+
   Vector3D.cpp
-  easylogging++.cc
+  Ray3D.cpp
+
+  Surface.cpp
+  Sphere.cpp
+  Plane.cpp
+  Light.cpp
 )
 
 message(${SDL2_INCLUDE_DIR})

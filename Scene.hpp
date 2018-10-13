@@ -5,6 +5,7 @@
 #include "Camera.hpp"
 #include "Surface.hpp" 
 #include "Light.hpp"
+#include "PPMImage.hpp"
 
 class Scene
 {
@@ -15,6 +16,8 @@ class Scene
 
     public:
         Scene();
+
         void readSceneFile(std::string filepath);
-        RGBColor** capture();
+
+        PPMImage capture();
 };

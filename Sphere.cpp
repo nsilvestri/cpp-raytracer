@@ -34,7 +34,20 @@ void Sphere::setRadius(float radius)
     this->radius = radius;
 }
 
-bool Sphere::intersect(IntersectionRecord& result, Ray3D r)
+bool Sphere::intersect(IntersectionRecord& result, Ray3D ray)
 {
-    return false;
+    float quadraticA = ray.getDirection().dot(ray.getDirection());
+    float quadraticB = (ray.getDirection() * 2).dot(
+            ray.getOrigin() - this->getPosition());
+    float quadraticC = (ray.getOrigin() - this->getPosition()).dot(
+            (ray.getOrigin() - this->getPosition())) - (this->getRadius() * this->getRadius());
+
+    // D = B^2-4AC
+    float discriminant = (quadraticB * quadraticB) - (4 * quadraticA * quadraticC);
+
+    if (discriminant < 0)
+    {
+        return false;
+    }
+    return true;
 }
