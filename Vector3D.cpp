@@ -126,7 +126,7 @@ Vector3D Vector3D::operator-(const Vector3D& rhs)
  * @param scalar the value to scale the vector by
  * @return a new vector equal to the original vector scaled by the scalar
  */
-Vector3D Vector3D::operator*(float scalar) const
+Vector3D Vector3D::operator*(float scalar)
 {
     Vector3D newVec(*this);
     newVec.setX(newVec.getX() * scalar);

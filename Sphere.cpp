@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Sphere.hpp"
 #include "Vector3D.hpp"
 #include "Ray3D.hpp"
