@@ -78,3 +78,9 @@ bool Ray3D::isPointOn(Vector3D point) const
 {
     // TODO
 }
+
+std::ostream& operator<<(std::ostream &stream, const Ray3D& r)
+{
+    return stream << "Ray3D(Origin=" << r.getOrigin() <<
+            ", direction=" << r.getDirection() << ")";
+}

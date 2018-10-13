@@ -19,5 +19,8 @@ class Ray3D
         void setDirection(Vector3D direction);
 
         bool isPointOn(Vector3D point) const;
+
+        friend std::ostream& operator<<(std::ostream &stream, const Ray3D& r);
+
 };
 

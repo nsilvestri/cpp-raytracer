@@ -26,6 +26,7 @@ class Camera
         float bottom;
         float left;
         float right;
+        void calculateImagePoints();
         
     public:
         Camera(Vector3D position, Vector3D imageLocation, Vector3D up,
@@ -47,6 +48,6 @@ class Camera
         int getHorizontalResolution() const;
         int getVerticalResolution() const;
 
-        Ray3D** generateRays() const;
+        Ray3D** generateRays();
 };
 
