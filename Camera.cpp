@@ -156,11 +156,11 @@ Ray3D** Camera::generateRays()
         for (int c = 0; c < this->getHorizontalResolution(); c++)
         {
             // u = l + (r - l)(c + 0.5)/horizRes
-            float uScalar = (this->left + (this->right - this->left) * (c + 0.5)) / 
-                    this->getHorizontalResolution();
+            float uScalar = this->left + (((this->right - this->left) * (c + 0.5)) / 
+                    this->getHorizontalResolution());
             // v = b + (t - b)(r + 0.5)/vertRes
-            float vScalar = (this->bottom + (this->top - this->bottom) * (r + 0.5)) / 
-                    this->getVerticalResolution();
+            float vScalar = this->bottom + (((this->top - this->bottom) * (r + 0.5)) / 
+                    this->getVerticalResolution());
 
             // ray.direction = -dW + uU + vV
             Vector3D direction = (this->w * (-1 * dScalar)) +
@@ -228,7 +228,7 @@ Ray3D** Camera::generateOrthographicRays()
  */
 void Camera::calculateImagePoints()
 {
-    this->top = (imagePosition - position).length() * tan((fov / 2) * 3.14159265 / 180);
+    this->top = -(imagePosition - position).length() * tan((fov / 2) * 3.14159265 / 180);
     this->bottom = -top;
     this->right = top * ((float) horizontalResolution / verticalResolution);
     this->left = -right;
