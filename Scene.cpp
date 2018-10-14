@@ -289,28 +289,51 @@ PPMImage Scene::capture()
                 }
 
                 /* Shading calculations */
-                float intensity = .01;
                 
-                // Calculate Lambertian shading
-                float lambMax = fmax(0, ir.normalAtIntersection.dot(lights.at(0).getPosition() - ir.pointOfIntersection));
-                float kR = currentSurface->getMaterial().getDiffuse().getR();
-                float kG = currentSurface->getMaterial().getDiffuse().getG();
-                float kB = currentSurface->getMaterial().getDiffuse().getB();
+                float lambR = 0;
+                float lambG = 0;
+                float lambB = 0;
 
-                float lambR = kR * intensity * lambMax;
-                float lambG = kG * intensity * lambMax;
-                float lambB = kB * intensity * lambMax;
+                float specR = 0;
+                float specG = 0;
+                float specB = 0;
 
-                // calculate blinn-phong shading
-                Vector3D half = ((this->camera.getPosition() - ir.pointOfIntersection) + (lights.at(0).getPosition() - ir.pointOfIntersection)).normalize();
-                float specMax = pow(fmax(0, ir.normalAtIntersection.normalize().dot(half)), currentSurface->getMaterial().getPhongExponent());
-                float sR = currentSurface->getMaterial().getSpecular().getR();
-                float sG = currentSurface->getMaterial().getSpecular().getG();
-                float sB = currentSurface->getMaterial().getSpecular().getB();
+                for (int l = 0; l < lights.size(); l++)
+                {
+                    Light currentLight = lights.at(l);
+                    Ray3D rayToLight = Ray3D(ir.pointOfIntersection, currentLight.getPosition() - ir.pointOfIntersection);
 
-                float specR = sR * specMax;
-                float specG = sG * specMax;
-                float specB = sB * specMax;
+                    // check if point is in shadow
+                    for (int i = 0; i < surfaces.size(); i++)
+                    {
+                        IntersectionRecord temp;
+                        if (!surfaces.at(i)->intersect(temp, rayToLight))
+                        {
+                            // Calculate Lambertian and specular shading
+                            float lambMax = fmax(0, ir.normalAtIntersection.dot(rayToLight.getDirection()));
+                            float kR = currentSurface->getMaterial().getDiffuse().getR();
+                            float kG = currentSurface->getMaterial().getDiffuse().getG();
+                            float kB = currentSurface->getMaterial().getDiffuse().getB();
+
+                            float intensity = currentLight.getColor().getLuminance() / 2;
+                            // float intensity = .1;
+                            lambR += kR * intensity * lambMax;
+                            lambG += kG * intensity * lambMax;
+                            lambB += kB * intensity * lambMax;
+
+                            // calculate blinn-phong shading
+                            Vector3D half = ((this->camera.getPosition() - ir.pointOfIntersection) + currentLight.getPosition()).normalize();
+                            float specMax = pow(fmax(0, ir.normalAtIntersection.normalize().dot(half)), currentSurface->getMaterial().getPhongExponent());
+                            float sR = currentSurface->getMaterial().getSpecular().getR();
+                            float sG = currentSurface->getMaterial().getSpecular().getG();
+                            float sB = currentSurface->getMaterial().getSpecular().getB();
+
+                            specR += sR * specMax;
+                            specG += sG * specMax;
+                            specB += sB * specMax;
+                        }
+                    }
+                }               
 
                 // calculate ambient
                 float ambientIntensity = .1;
