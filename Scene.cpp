@@ -278,8 +278,9 @@ PPMImage Scene::capture()
             Ray3D ray = rays[r][c];
             for (int s = 0; s < surfaces.size(); s++)
             {
+                Surface* currentSurface = surfaces.at(s);
                 IntersectionRecord ir;
-                bool intersected = surfaces.at(s)->intersect(ir, ray);
+                bool intersected = currentSurface->intersect(ir, ray);
 
                 if (!intersected)
                 {
@@ -287,17 +288,38 @@ PPMImage Scene::capture()
                     continue;
                 }
 
+                /* Shading calculations */
+                float intensity = .01;
+                
                 // Calculate Lambertian shading
-                float intensity = lights.at(0).getColor().getLuminance() / 255.0;
-                float max = fmax(0, ir.normalAtIntersection.dot(lights.at(0).getPosition() - ir.pointOfIntersection));
-                float kR = surfaces.at(s)->getMaterial().getDiffuse().getR();
-                float kG = surfaces.at(s)->getMaterial().getDiffuse().getG();
-                float kB = surfaces.at(s)->getMaterial().getDiffuse().getB();
+                float lambMax = fmax(0, ir.normalAtIntersection.dot(lights.at(0).getPosition() - ir.pointOfIntersection));
+                float kR = currentSurface->getMaterial().getDiffuse().getR();
+                float kG = currentSurface->getMaterial().getDiffuse().getG();
+                float kB = currentSurface->getMaterial().getDiffuse().getB();
 
-                float lambR = kR * intensity * max;
-                float lambG = kG * intensity * max;
-                float lambB = kB * intensity * max;
-                pixels2d[r][c] = RGBColor(lambR, lambG, lambB);
+                float lambR = kR * intensity * lambMax;
+                float lambG = kG * intensity * lambMax;
+                float lambB = kB * intensity * lambMax;
+
+                // calculate blinn-phong shading
+                Vector3D half = ((this->camera.getPosition() - ir.pointOfIntersection) + (lights.at(0).getPosition() - ir.pointOfIntersection)).normalize();
+                float specMax = pow(fmax(0, ir.normalAtIntersection.normalize().dot(half)), currentSurface->getMaterial().getPhongExponent());
+                float sR = currentSurface->getMaterial().getSpecular().getR();
+                float sG = currentSurface->getMaterial().getSpecular().getG();
+                float sB = currentSurface->getMaterial().getSpecular().getB();
+
+                float specR = sR * specMax;
+                float specG = sG * specMax;
+                float specB = sB * specMax;
+
+                // calculate ambient
+                float ambientIntensity = .1;
+                float ambR = currentSurface->getMaterial().getAmbient().getR() * ambientIntensity;
+                float ambG = currentSurface->getMaterial().getAmbient().getG() * ambientIntensity;
+                float ambB = currentSurface->getMaterial().getAmbient().getB() * ambientIntensity;
+
+
+                pixels2d[r][c] = RGBColor(lambR + specR + ambR, lambG + specG + ambG, lambB + specB + ambB);
                 break;
             }
         }

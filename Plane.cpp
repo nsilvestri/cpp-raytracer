@@ -34,5 +34,6 @@ bool Plane::intersect(IntersectionRecord& result, Ray3D r)
     float t = ((this->getPosition() - r.getOrigin()).dot(this->getNormal())) /
             (r.getDirection().dot(this->getNormal()));
     result.normalAtIntersection = this->getNormal();
+    result.pointOfIntersection = r.getOrigin() + (r.getDirection() * t);
     return t >= 0;
 }
