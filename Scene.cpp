@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <cstring>
+#include <math.h>
 
 #include "easylogging++.h"
 
@@ -287,8 +288,16 @@ PPMImage Scene::capture()
                 }
 
                 // Calculate Lambertian shading
+                float intensity = lights.at(0).getColor().getLuminance() / 255.0;
+                float max = fmax(0, ir.normalAtIntersection.dot(lights.at(0).getPosition() - ir.pointOfIntersection));
+                float kR = surfaces.at(s)->getMaterial().getDiffuse().getR();
+                float kG = surfaces.at(s)->getMaterial().getDiffuse().getG();
+                float kB = surfaces.at(s)->getMaterial().getDiffuse().getB();
 
-                pixels2d[r][c] = surfaces.at(s)->getMaterial().getDiffuse();
+                float lambR = kR * intensity * max;
+                float lambG = kG * intensity * max;
+                float lambB = kB * intensity * max;
+                pixels2d[r][c] = RGBColor(lambR, lambG, lambB);
                 break;
             }
         }
