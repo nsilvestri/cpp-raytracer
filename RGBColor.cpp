@@ -116,13 +116,7 @@ float RGBColor::getB() const
  */
 void RGBColor::setR(float r)
 {
-    if (r < 0 || r > 1)
-    {
-        throw std::invalid_argument(
-            "Received value for r outside range of 0 to 1: r = " 
-            + std::to_string(r));
-    }
-    this->r = r;
+    this->r = this->clamp(r);
 }
 
 /**
@@ -131,13 +125,7 @@ void RGBColor::setR(float r)
  */
 void RGBColor::setG(float g)
 {
-    if (g < 0 || g > 1)
-    {
-        throw std::invalid_argument(
-            "Received value for g outside range of 0 to 1: g = " 
-            + std::to_string(g));
-    }
-    this->g = g;
+    this->g = clamp(g);
 }
 
 /**
@@ -146,13 +134,7 @@ void RGBColor::setG(float g)
  */
 void RGBColor::setB(float b)
 {
-    if (b < 0 || b > 1)
-    {
-        throw std::invalid_argument(
-            "Received value for b outside range of 0 to 1: b = " 
-            + std::to_string(b));
-    }
-    this->b = b;
+    this->b = clamp(b);
 }
 
 /**
