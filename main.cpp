@@ -70,16 +70,10 @@ int main(int argc, char **argv)
 {
 	std::string inputFile;
 	std::string outputFile;
-	float scale;
-	if (argc == 2)
+	if (argc == 3)
 	{	
 		inputFile = argv[1];
-	}
-	else if (argc == 4)
-	{
-		inputFile = argv[1];
 		outputFile = argv[2];
-		scale = atof(argv[3]);
 	}
 	else
 	{
@@ -186,46 +180,14 @@ int main(int argc, char **argv)
 			}
 			else if (event.type == SDL_KEYDOWN)
 			{
-				float gain = 1;
-				float bias = 0;
-				float gamma = 1;
 				switch (event.key.keysym.sym)
 				{
-					case SDLK_q:
-						std::cout << "Q pressed" << std::endl;
-						gain += .05;
-						break;
-					case SDLK_a:
-						std::cout << "A pressed" << std::endl;
-						gain -= .05;
-						break;
-					case SDLK_w:
-						std::cout << "W pressed" << std::endl;
-						bias += .05;
-						break;
-					case SDLK_s:
-						std::cout << "S pressed" << std::endl;
-						bias -= .05;
-						break;
-					case SDLK_e:
-						std::cout << "E pressed" << std::endl;
-						gamma += .05;
-						break;
-					case SDLK_d:
-						std::cout << "D pressed" << std::endl;
-						gamma -= .05;
-						break;
-					case SDLK_c:
-						std::cout << "C pressed" << std::endl;
-						image.convolve(kernel, 3, 3);
-						break;
 					case SDLK_RETURN:
 						image.write(outputFile);
 						break;
 					default:
 						break;
         		}
-				image.rescale(gain, bias, gamma);
 			}
 		}
 
