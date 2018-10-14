@@ -280,15 +280,16 @@ PPMImage Scene::capture()
                 IntersectionRecord ir;
                 bool intersected = surfaces.at(s)->intersect(ir, ray);
 
-                if (intersected)
-                {
-                    pixels2d[r][c] = surfaces.at(s)->getMaterial().getDiffuse();
-                    break;
-                }
-                else
+                if (!intersected)
                 {
                     pixels2d[r][c] = RGBColor(0, 0, 0);
+                    continue;
                 }
+
+                // Calculate Lambertian shading
+
+                pixels2d[r][c] = surfaces.at(s)->getMaterial().getDiffuse();
+                break;
             }
         }
     }

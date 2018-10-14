@@ -53,5 +53,7 @@ bool Sphere::intersect(IntersectionRecord& result, Ray3D ray)
     {
         return false;
     }
+
+    
     return true;
 }

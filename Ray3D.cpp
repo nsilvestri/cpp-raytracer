@@ -8,12 +8,13 @@
  * Constructor for Ray3D. Creates a new Ray3D object based on the given origin
  * and direction, given as Vector3D objects.
  * @param origin the origin of this new Ray3D
- * @param direction the direction of this new Ray3D
+ * @param direction the direction of this new Ray3D. The direction will be
+ * normalized.
  */
 Ray3D::Ray3D(Vector3D origin, Vector3D direction)
 {
     this->setOrigin(origin);
-    this->setDirection(direction);
+    this->setDirection(direction.normalize());
 }
 
 /**
@@ -32,7 +33,7 @@ Ray3D::Ray3D()
 Ray3D::Ray3D(const Ray3D& r)
 {
     this->setOrigin(r.getOrigin());
-    this->setDirection(r.getDirection());
+    this->setDirection(r.getDirection().normalize());
 }
 
 /**
@@ -63,12 +64,13 @@ void Ray3D::setOrigin(Vector3D origin)
 }
 
 /**
- * Sets the direction of this Ray3D to the given direction.
+ * Sets the direction of this Ray3D to the given direction. The direction will
+ * be normalized.
  * @param direction the new direction to set this Ray3D to.
  */
 void Ray3D::setDirection(Vector3D direction)
 {
-    this->direction = direction;
+    this->direction = direction.normalize();
 }
 
 /**

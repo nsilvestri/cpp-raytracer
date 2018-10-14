@@ -68,13 +68,15 @@ float Vector3D::length() const
  * Normalizes this vector; i.e. changes the length of this vector to 1 while
  * preserving direction. If the length of this vector is 0, nothing happens to
  * this vector.
+ * @return this vector after normalization
  */
-void Vector3D::normalize()
+Vector3D Vector3D::normalize()
 {
     float length = this->length();
-    if (length == 0) return;
+    if (length == 0) return *this;
     // this = this / length(this)
     *this = *this * (1.0 / length);
+    return *this;
 }
 
 /**
