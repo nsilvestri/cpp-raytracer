@@ -138,6 +138,28 @@ Vector3D Vector3D::operator*(float scalar)
     return newVec;
 }
 
+bool Vector3D::operator==(const Vector3D& rhs) const
+{
+    return !(this->compare(rhs));
+}
+
+bool Vector3D::operator!=(const Vector3D& rhs) const
+{
+    return !(*this == rhs);
+}
+
+int Vector3D::compare(const Vector3D& other) const
+{
+    if (this->getX() != other.getX() ||
+        this->getY() != other.getY() ||
+        this->getZ() != other.getZ())
+    {
+        return -1;
+    }
+
+    return 0;
+}
+
 std::ostream& operator<<(std::ostream& stream, const Vector3D& v)
 {
     return stream << "Vector3D(" << v.getX() << ", " << v.getY() << ", " << v.getZ() << ")";

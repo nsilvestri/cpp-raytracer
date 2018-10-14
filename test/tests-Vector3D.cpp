@@ -98,7 +98,7 @@ TEST_CASE("Normalize vector", "[Vector3D]")
     v1.normalize();
     REQUIRE(v1.length() == one);
 
-    Vector3D v2(2359, 222, 6820);
+    Vector3D v2(2359, -222, 6820);
     v2.normalize();
     REQUIRE(v2.length() == one);
 
@@ -109,4 +109,14 @@ TEST_CASE("Normalize vector", "[Vector3D]")
     Vector3D v4(0, 0, 0);
     v4.normalize();
     REQUIRE(v4.length() == 0.0);
+}
+
+TEST_CASE("Test equality operator", "[Vector3D]")
+{
+    Vector3D v1 = Vector3D(1, 2, 3);
+    Vector3D v2 = Vector3D(1, 2, 3);   
+    Vector3D v3 = Vector3D(-3, 0, 1);
+    REQUIRE(v1 == v1);
+    REQUIRE(v1 == v2);
+    REQUIRE(v2 != v3);
 }

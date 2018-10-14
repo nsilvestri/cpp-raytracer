@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 
 #include "Sphere.hpp"
 #include "Vector3D.hpp"
@@ -39,21 +40,32 @@ void Sphere::setRadius(float radius)
 bool Sphere::intersect(IntersectionRecord& result, Ray3D ray)
 {
     // a, b, c are the A, B, C in the quadtratic equation
+
+    // a = (d . d)
     float a = ray.getDirection().dot(ray.getDirection());
+    // b = (d . (e - c))
     float b = (ray.getDirection() * 2).dot(
-            ray.getOrigin() - this->getPosition());
-    float c = (ray.getOrigin() - this->getPosition()).dot(
-            (ray.getOrigin() - this->getPosition())) -
-            (this->getRadius() * this->getRadius());
+               ray.getOrigin() - this->getPosition());
+    // c = (rayPos - center) . (rayPos - center) - R^2
+    float c = ((ray.getOrigin() - this->getPosition()).dot(
+              (ray.getOrigin() - this->getPosition()))) -
+              (this->getRadius() * this->getRadius());
 
     // D = B^2-4AC
     float discriminant = (b * b) - (4 * a * c);
-    // std::cout << ray << ": " << discriminant << std::endl;
     if (discriminant < 0)
     {
         return false;
     }
 
-    
+    float tPlus = (-b + sqrt(discriminant)) / (2 * a);
+    float tMinus = (-b - sqrt(discriminant)) / (2 * a);
+
+    float t = fmin(tPlus, tMinus);
+
+    // point on ray is P(t) = e + td
+    result.pointOfIntersection = ray.getOrigin() + (ray.getDirection() * t);
+    result.normalAtIntersection = (result.pointOfIntersection - this->getPosition()) * (1 / this->getRadius());
+
     return true;
 }
