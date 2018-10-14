@@ -1,37 +1,14 @@
 #include "Surface.hpp"
-#include "RGBColor.hpp"
+#include "Material.hpp"
 
-void Surface::setAmbient(RGBColor ambient)
+Surface::Surface() {}
+
+void Surface::setMaterial(Material material)
 {
-    this->ambient = ambient;
+    this->material = material;
 }
 
-void Surface::setDiffuse(RGBColor diffuse)
+Material Surface::getMaterial() const
 {
-    this->diffuse = diffuse;
-}
-
-void Surface::setSpecular(RGBColor specular)
-{
-    this->specular = specular;
-}
-
-void Surface::setPhong(float phong)
-{
-    this->phong = phong;
-}
-
-RGBColor Surface::getAmbient()
-{
-    return this->ambient;
-}
-
-RGBColor Surface::getDiffuse()
-{
-    return this->diffuse;
-}
-
-RGBColor Surface::getSpecular()
-{
-    return this->specular;
+    return this->material;
 }

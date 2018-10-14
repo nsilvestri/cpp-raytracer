@@ -11,6 +11,7 @@ set(source_files
   
   PPMImage.cpp
   RGBColor.cpp
+  Material.cpp
 
   Scene.cpp
   Camera.cpp

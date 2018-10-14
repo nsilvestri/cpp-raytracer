@@ -14,6 +14,7 @@
 #include "Plane.hpp"
 #include "RGBColor.hpp"
 #include "PPMImage.hpp"
+#include "Material.hpp"
 
 Scene::Scene()
 {
@@ -163,14 +164,14 @@ void Scene::readSceneFile(std::string filepath)
                                          atof(tokens3.at(1).c_str()),
                                          atof(tokens3.at(2).c_str()));
 
-            // set ambient, diffuse, and specular for new sphere
-            newSphere->setAmbient(ambient);
-            newSphere->setDiffuse(diffuse);
-            newSphere->setSpecular(specular);
-
             /* read in one more value for Phong exponent */
             std::getline(infile, line);
-            newSphere->setPhong(atof(line.c_str()));
+            float phongExponent = atof(line.c_str());
+
+            // set ambient, diffuse, and specular for new sphere
+            Material material = Material(ambient, diffuse, specular, phongExponent);
+            newSphere->setMaterial(material);
+
 
             this->surfaces.push_back(newSphere);
             LOG(INFO) << "Added sphere at " << spherePosition <<
@@ -227,14 +228,13 @@ void Scene::readSceneFile(std::string filepath)
                                          atof(tokens3.at(1).c_str()),
                                          atof(tokens3.at(2).c_str()));
 
-            // set ambient, diffuse, and specular for new sphere
-            newPlane->setAmbient(ambient);
-            newPlane->setDiffuse(diffuse);
-            newPlane->setSpecular(specular);
-
             /* read in one more value for Phong exponent */
             std::getline(infile, line);
-            newPlane->setPhong(atof(line.c_str()));
+            float phongExponent = atof(line.c_str());
+
+            // set ambient, diffuse, and specular for new sphere
+            Material material = Material(ambient, diffuse, specular, phongExponent);
+            newPlane->setMaterial(material);
             
             this->surfaces.push_back(newPlane);
             LOG(INFO) << "Added plane at " << pointPosition <<
@@ -282,7 +282,7 @@ PPMImage Scene::capture()
 
                 if (intersected)
                 {
-                    pixels2d[r][c] = surfaces.at(s)->getDiffuse();
+                    pixels2d[r][c] = surfaces.at(s)->getMaterial().getDiffuse();
                     break;
                 }
                 else

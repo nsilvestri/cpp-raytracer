@@ -8,14 +8,17 @@ class Material
         RGBColor ambient;
         RGBColor diffuse;
         RGBColor specular;
-        float phong;
+        float phongExponent;
     public:
-        Material(RGBColor ambient, RGBColor diffuse, RGBColor specular);
+        Material();
+        Material(RGBColor ambient, RGBColor diffuse, RGBColor specular, float phongExponent);
 
         void setAmbient(RGBColor ambient);
         void setDiffuse(RGBColor diffuse);
         void setSpecular(RGBColor specular);
+        void setPhongExponent(float phongExponent);
         RGBColor getAmbient() const;
         RGBColor getDiffuse() const;
         RGBColor getSpecular() const;
-}
+        float getPhongExponent() const;
+};
