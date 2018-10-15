@@ -336,7 +336,7 @@ RGBColor Scene::castRay(Ray3D ray)
     {
         Light currentLight = lights.at(l);
         // offset origin to avoid self-intersection. Sometimes works.
-        Ray3D rayToLight = Ray3D(closestIntersection->pointOfIntersection + (closestIntersection->pointOfIntersection * 0.00001), currentLight.getPosition() - closestIntersection->pointOfIntersection);
+        Ray3D rayToLight = Ray3D(closestIntersection->pointOfIntersection + (closestIntersection->normalAtIntersection * 0.00001), currentLight.getPosition() - closestIntersection->pointOfIntersection);
 
         // check if point is in shadow by seeing if the light ray intersects with a surface
         for (int i = 0; i < surfaces.size(); i++)
@@ -367,9 +367,9 @@ RGBColor Scene::castRay(Ray3D ray)
                 specB += sB * specMax;
 
                 // calculate shadow light
-                shadR = currentLight.getColor().getR() * intensity / 2;
-                shadG = currentLight.getColor().getG() * intensity / 2;
-                shadB = currentLight.getColor().getB() * intensity / 2;
+                shadR += currentLight.getColor().getR() / 30;
+                shadG += currentLight.getColor().getG() / 30;
+                shadB += currentLight.getColor().getB() / 30;
             }
         }
     }               
