@@ -335,6 +335,7 @@ RGBColor Scene::castRay(Ray3D ray)
     for (int l = 0; l < lights.size(); l++)
     {
         Light currentLight = lights.at(l);
+        float intensity = currentLight.getColor().getLuminance() / 3;
         // offset origin to avoid self-intersection. Sometimes works.
         Ray3D rayToLight = Ray3D(closestIntersection->pointOfIntersection + (closestIntersection->normalAtIntersection * 0.00001), currentLight.getPosition() - closestIntersection->pointOfIntersection);
 
@@ -346,11 +347,10 @@ RGBColor Scene::castRay(Ray3D ray)
             {
                 // Calculate Lambertian and specular shading
                 float lambMax = fmax(0, closestIntersection->normalAtIntersection.dot(rayToLight.getDirection()));
-                float dR = currentSurface->getMaterial().getDiffuse().getR();
-                float dG = currentSurface->getMaterial().getDiffuse().getG();
-                float dB = currentSurface->getMaterial().getDiffuse().getB();
+                float dR = currentSurface->getMaterial().getDiffuse().getR() + currentLight.getColor().getR() * intensity;
+                float dG = currentSurface->getMaterial().getDiffuse().getG() + currentLight.getColor().getG() * intensity;
+                float dB = currentSurface->getMaterial().getDiffuse().getB() + currentLight.getColor().getB() * intensity;
 
-                float intensity = currentLight.getColor().getLuminance() / 2;
                 lambR += dR * intensity * lambMax;
                 lambG += dG * intensity * lambMax;
                 lambB += dB * intensity * lambMax;
@@ -358,19 +358,18 @@ RGBColor Scene::castRay(Ray3D ray)
                 // calculate blinn-phong shading
                 Vector3D half = ((this->camera.getPosition() - closestIntersection->pointOfIntersection) + currentLight.getPosition()).normalize();
                 float specMax = pow(fmax(0, closestIntersection->normalAtIntersection.normalize().dot(half)), currentSurface->getMaterial().getPhongExponent());
-                float sR = currentSurface->getMaterial().getSpecular().getR();
-                float sG = currentSurface->getMaterial().getSpecular().getG();
-                float sB = currentSurface->getMaterial().getSpecular().getB();
+                float sR = currentSurface->getMaterial().getSpecular().getR() + currentLight.getColor().getR() * intensity / 3;
+                float sG = currentSurface->getMaterial().getSpecular().getG() + currentLight.getColor().getG() * intensity / 3;
+                float sB = currentSurface->getMaterial().getSpecular().getB() + currentLight.getColor().getB() * intensity / 3;
 
                 specR += sR * specMax;
                 specG += sG * specMax;
                 specB += sB * specMax;
-
-                // calculate shadow light
-                shadR += currentLight.getColor().getR() / 30;
-                shadG += currentLight.getColor().getG() / 30;
-                shadB += currentLight.getColor().getB() / 30;
             }
+            // calculate shadow light
+            shadR += currentLight.getColor().getR() * intensity / 10;
+            shadG += currentLight.getColor().getG() * intensity / 10;
+            shadB += currentLight.getColor().getB() * intensity / 10;
         }
     }               
 
