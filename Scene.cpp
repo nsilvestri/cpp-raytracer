@@ -304,7 +304,7 @@ PPMImage Scene::capture()
                 for (int l = 0; l < lights.size(); l++)
                 {
                     Light currentLight = lights.at(l);
-                    Ray3D rayToLight = Ray3D(ir.pointOfIntersection, currentLight.getPosition() - ir.pointOfIntersection);
+                    Ray3D rayToLight = Ray3D(ir.pointOfIntersection + (ir.pointOfIntersection * 0.001), currentLight.getPosition() - ir.pointOfIntersection);
 
                     // check if point is in shadow by seeing if the light ray intersects with a surface
                     for (int i = 0; i < surfaces.size(); i++)
