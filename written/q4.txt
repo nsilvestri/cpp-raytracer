@@ -1,0 +1,6 @@
+The three cases for ray-sphere intersection are:
+    1. A not-intersection (a miss)
+    2. An intersection where the ray enters and exits the sphere at two distinct
+       locations.
+    3. An intersection where the ray is tangent to the edge of the sphere, with
+       only one distinct point of contact.

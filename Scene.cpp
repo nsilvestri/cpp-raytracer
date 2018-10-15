@@ -319,7 +319,7 @@ PPMImage Scene::capture()
                             float dB = currentSurface->getMaterial().getDiffuse().getB();
 
                             // float intensity = currentLight.getColor().getLuminance();
-                            float intensity = .5;
+                            float intensity = .25;
                             lambR += dR * intensity * lambMax;
                             lambG += dG * intensity * lambMax;
                             lambB += dB * intensity * lambMax;

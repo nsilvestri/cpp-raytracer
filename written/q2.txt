@@ -1,0 +1,6 @@
+Perspective projection rays all have their origins at the same location, called
+the eye. Each ray has a slightly different direction, causing the image to have
+depth, and objects get smaller as they are get farther away. In comparision, an
+orthographic procection's rays all have the same direction, but different
+origins. This causes an appearance of objects that don't get smaller as they get
+farther away.
