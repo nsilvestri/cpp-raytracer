@@ -66,6 +66,8 @@ bool Sphere::intersect(IntersectionRecord& result, Ray3D ray)
     // point on ray is P(t) = e + td
     result.pointOfIntersection = ray.getOrigin() + (ray.getDirection() * t);
     result.normalAtIntersection = (result.pointOfIntersection - this->getPosition()) * (1 / this->getRadius());
+    result.t = t;
+    result.surfaceIntersected = this;
 
     return true;
 }

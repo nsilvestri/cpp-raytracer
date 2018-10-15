@@ -275,80 +275,110 @@ PPMImage Scene::capture()
     {
         for (int c = 0; c < imageCols; c++)
         {
-            // check each surface for an intersection
-            Ray3D ray = rays[r][c];
-            for (int s = 0; s < surfaces.size(); s++)
-            {
-                Surface* currentSurface = surfaces.at(s);
-                IntersectionRecord ir;
-                bool intersected = currentSurface->intersect(ir, ray);
+            RGBColor color = this->castRay(rays[r][c]);
 
-                // if there's no intersect, then we can skip shading
-                if (!intersected)
-                {
-                    pixels2d[r][c] = RGBColor(0, 0, 0);
-                    continue;
-                }
-
-                /* Shading calculations */
-                
-                float lambR = 0;
-                float lambG = 0;
-                float lambB = 0;
-
-                float specR = 0;
-                float specG = 0;
-                float specB = 0;
-
-                // calculate shading based on every light source
-                for (int l = 0; l < lights.size(); l++)
-                {
-                    Light currentLight = lights.at(l);
-                    Ray3D rayToLight = Ray3D(ir.pointOfIntersection + (ir.pointOfIntersection * 0.001), currentLight.getPosition() - ir.pointOfIntersection);
-
-                    // check if point is in shadow by seeing if the light ray intersects with a surface
-                    for (int i = 0; i < surfaces.size(); i++)
-                    {
-                        IntersectionRecord temp;
-                        if (!surfaces.at(i)->intersect(temp, rayToLight))
-                        {
-                            // Calculate Lambertian and specular shading
-                            float lambMax = fmax(0, ir.normalAtIntersection.dot(rayToLight.getDirection()));
-                            float dR = currentSurface->getMaterial().getDiffuse().getR();
-                            float dG = currentSurface->getMaterial().getDiffuse().getG();
-                            float dB = currentSurface->getMaterial().getDiffuse().getB();
-
-                            // float intensity = currentLight.getColor().getLuminance();
-                            float intensity = .25;
-                            lambR += dR * intensity * lambMax;
-                            lambG += dG * intensity * lambMax;
-                            lambB += dB * intensity * lambMax;
-
-                            // calculate blinn-phong shading
-                            Vector3D half = ((this->camera.getPosition() - ir.pointOfIntersection) + currentLight.getPosition()).normalize();
-                            float specMax = pow(fmax(0, ir.normalAtIntersection.normalize().dot(half)), currentSurface->getMaterial().getPhongExponent());
-                            float sR = currentSurface->getMaterial().getSpecular().getR();
-                            float sG = currentSurface->getMaterial().getSpecular().getG();
-                            float sB = currentSurface->getMaterial().getSpecular().getB();
-
-                            specR += sR * specMax;
-                            specG += sG * specMax;
-                            specB += sB * specMax;
-                        }
-                    }
-                }               
-
-                // calculate ambient
-                float ambientIntensity = .1;
-                float ambR = currentSurface->getMaterial().getAmbient().getR() * ambientIntensity;
-                float ambG = currentSurface->getMaterial().getAmbient().getG() * ambientIntensity;
-                float ambB = currentSurface->getMaterial().getAmbient().getB() * ambientIntensity;
-
-                pixels2d[r][c] = RGBColor(lambR + specR + ambR, lambG + specG + ambG, lambB + specB + ambB);
-                break;
-            }
+            pixels2d[r][c] = color;
         }
     }
     PPMImage image = PPMImage(*pixels2d, imageRows, imageCols);
     return image;
+}
+
+RGBColor Scene::castRay(Ray3D ray)
+{
+    // check the ray against all surfaces
+    IntersectionRecord* closestIntersection = NULL;
+    for (int s = 0; s < surfaces.size(); s++)
+    {
+        Surface* currentSurface = surfaces.at(s);
+        IntersectionRecord* ir = (IntersectionRecord*)malloc(sizeof *ir);
+        bool intersected = currentSurface->intersect(*ir, ray);
+
+        // if there's no intersect, then we can skip shading
+        if (!intersected)
+        {
+            continue;
+        }
+
+        // if we did intersect, check that it's the closest so far.
+        if (closestIntersection == NULL || ir->t < closestIntersection->t)
+        {
+            closestIntersection = ir;
+        }
+        else
+        {
+            continue;
+        }
+    }
+
+    if (closestIntersection == NULL)
+    {
+        return RGBColor(0, 0, 0);
+    }
+
+    /* Shading calculations */
+    
+    float lambR = 0;
+    float lambG = 0;
+    float lambB = 0;
+
+    float specR = 0;
+    float specG = 0;
+    float specB = 0;
+
+    float shadR = 0;
+    float shadG = 0;
+    float shadB = 0;
+
+    // calculate shading based on every light source
+    Surface* currentSurface = closestIntersection->surfaceIntersected;
+    for (int l = 0; l < lights.size(); l++)
+    {
+        Light currentLight = lights.at(l);
+        // offset origin to avoid self-intersection. Sometimes works.
+        Ray3D rayToLight = Ray3D(closestIntersection->pointOfIntersection + (closestIntersection->pointOfIntersection * 0.00001), currentLight.getPosition() - closestIntersection->pointOfIntersection);
+
+        // check if point is in shadow by seeing if the light ray intersects with a surface
+        for (int i = 0; i < surfaces.size(); i++)
+        {
+            IntersectionRecord temp;
+            if (!surfaces.at(i)->intersect(temp, rayToLight))
+            {
+                // Calculate Lambertian and specular shading
+                float lambMax = fmax(0, closestIntersection->normalAtIntersection.dot(rayToLight.getDirection()));
+                float dR = currentSurface->getMaterial().getDiffuse().getR();
+                float dG = currentSurface->getMaterial().getDiffuse().getG();
+                float dB = currentSurface->getMaterial().getDiffuse().getB();
+
+                float intensity = currentLight.getColor().getLuminance() / 2;
+                lambR += dR * intensity * lambMax;
+                lambG += dG * intensity * lambMax;
+                lambB += dB * intensity * lambMax;
+
+                // calculate blinn-phong shading
+                Vector3D half = ((this->camera.getPosition() - closestIntersection->pointOfIntersection) + currentLight.getPosition()).normalize();
+                float specMax = pow(fmax(0, closestIntersection->normalAtIntersection.normalize().dot(half)), currentSurface->getMaterial().getPhongExponent());
+                float sR = currentSurface->getMaterial().getSpecular().getR();
+                float sG = currentSurface->getMaterial().getSpecular().getG();
+                float sB = currentSurface->getMaterial().getSpecular().getB();
+
+                specR += sR * specMax;
+                specG += sG * specMax;
+                specB += sB * specMax;
+
+                // calculate shadow light
+                shadR = currentLight.getColor().getR() * intensity / 2;
+                shadG = currentLight.getColor().getG() * intensity / 2;
+                shadB = currentLight.getColor().getB() * intensity / 2;
+            }
+        }
+    }               
+
+    // calculate ambient
+    float ambientIntensity = .1;
+    float ambR = currentSurface->getMaterial().getAmbient().getR() * ambientIntensity;
+    float ambG = currentSurface->getMaterial().getAmbient().getG() * ambientIntensity;
+    float ambB = currentSurface->getMaterial().getAmbient().getB() * ambientIntensity;
+    
+    return RGBColor(lambR + specR + ambR + shadR, lambG + specG + ambG + shadG, lambB + specB + ambB + shadB);
 }
