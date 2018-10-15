@@ -19,13 +19,13 @@ $ ./prog03 scene_file output_file
 ```
 #### Example
 ```bash
-$ ./prog01 ../scenes/myscene.ppm render.ppm
+$ ./prog03 ../scenes/myscene.ppm render.ppm
 ```
 
 ## Usage
 
 While running the program:
-* `RETURN` writes the writes the current render to the file specified at the command line.
+* `RETURN` writes the current render to the file specified at the command line.
 
 ## Testing
 
