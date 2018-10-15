@@ -1,0 +1,2 @@
+According to the code I wrote in Sphere.cpp, the two values for t for the given
+ray and sphere are t = .732051, 2.732051 (or sqrt(3)-1, and (sqrt(3)-1) + 2r).

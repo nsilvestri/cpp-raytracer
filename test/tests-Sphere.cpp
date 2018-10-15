@@ -27,4 +27,7 @@ TEST_CASE("Test intersection", "[Sphere]")
     REQUIRE(s.intersect(ir, alongZ));
     REQUIRE(s.intersect(ir, graze));
     REQUIRE(!s.intersect(ir, miss));
+
+    Ray3D throughOrigin = Ray3D(Vector3D(1, 1, 1), Vector3D(-1, -1, -1));
+    REQUIRE(s.intersect(ir, throughOrigin));
 }
