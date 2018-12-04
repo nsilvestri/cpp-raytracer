@@ -21,10 +21,6 @@
 #include "PPMImage.hpp"
 #include "Scene.hpp"
 
-// logging includes
-#include "easylogging++.h"
-INITIALIZE_EASYLOGGINGPP
-
 /**
  * Log an SDL error with some error message to the output stream of our
  * choice

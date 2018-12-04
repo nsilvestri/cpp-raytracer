@@ -5,8 +5,6 @@
 #include "Vector3D.hpp"
 #include "Ray3D.hpp"
 
-#include "easylogging++.h"
-
 Camera::Camera(Vector3D position, Vector3D imagePosition, Vector3D up,
         int horizontalResolution, int verticalResolution, float fov)
 {
@@ -69,10 +67,6 @@ void Camera::calculateUVW()
     this->w.normalize();
     this->u.normalize();
     this->v.normalize();
-
-    LOG(INFO) << "u = " << u;
-    LOG(INFO) << "v = " << v;
-    LOG(INFO) << "w = " << w;
 }
 
 /**
@@ -232,10 +226,4 @@ void Camera::calculateImagePoints()
     this->bottom = -top;
     this->right = top * ((float) horizontalResolution / verticalResolution);
     this->left = -right;
-
-    LOG(INFO) << "Image corners are at " <<
-            "t = " << this->top << ", " <<
-            "b = " << this->bottom << ", " <<
-            "l = " << this->left << ", " <<
-            "r = " << this->right;
 }

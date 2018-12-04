@@ -5,8 +5,6 @@
 #include <cstring>
 #include <math.h>
 
-#include "easylogging++.h"
-
 #include "Scene.hpp"
 #include "Camera.hpp"
 #include "Surface.hpp"
@@ -51,8 +49,6 @@ void Scene::readSceneFile(std::string filepath)
                                                atof(tokens.at(2).c_str()),
                                                atof(tokens.at(3).c_str()));
             this->camera.setPosition(cameraPosition);
-
-            LOG(INFO) << "Set camera position to " << cameraPosition;
         }
         // set lookat vector (image pos)
         else if (tokens.at(0).compare("l") == 0)
@@ -61,8 +57,6 @@ void Scene::readSceneFile(std::string filepath)
                                               atof(tokens.at(2).c_str()),
                                               atof(tokens.at(3).c_str()));
             this->camera.setImagePosition(imagePosition);
-            
-            LOG(INFO) << "Set image position to " << imagePosition;
         }
         // define up vector of camera
         else if (tokens.at(0).compare("u") == 0)
@@ -71,25 +65,17 @@ void Scene::readSceneFile(std::string filepath)
                                    atof(tokens.at(2).c_str()),
                                    atof(tokens.at(3).c_str()));
             this->camera.defineUp(up);
-            LOG(INFO) << "Defined camera's up to " << up;
         }
         // set camera FOV
         else if (tokens.at(0).compare("f") == 0)
         {
             this->camera.setFov(atof(tokens.at(1).c_str()));
-            
-            LOG(INFO) << "Set camera FOV to " << this->camera.getFov();
         }
         // set image dimensions
         else if (tokens.at(0).compare("i") == 0)
         {
             this->camera.setHorizontalResolution(atoi(tokens.at(1).c_str()));
             this->camera.setVerticalResolution(atoi(tokens.at(2).c_str()));
-
-            LOG(INFO) << "Set image resolution to " << 
-                    this->camera.getHorizontalResolution() <<
-                    "x" <<
-                    this->camera.getVerticalResolution();
         }
         // add light to scene
         else if (tokens.at(0).compare("L") == 0)
@@ -111,8 +97,6 @@ void Scene::readSceneFile(std::string filepath)
                                            atof(tokens1.at(1).c_str()),
                                            atof(tokens1.at(2).c_str()));
             this->lights.push_back(Light(lightPosition, lightColor));
-            LOG(INFO) << "Added Light at " << lightPosition <<
-                    " of color " << lightColor;
         }
         // add Sphere to scene
         else if (tokens.at(0).compare("S") == 0)
@@ -173,10 +157,7 @@ void Scene::readSceneFile(std::string filepath)
             Material material = Material(ambient, diffuse, specular, phongExponent);
             newSphere->setMaterial(material);
 
-
             this->surfaces.push_back(newSphere);
-            LOG(INFO) << "Added sphere at " << spherePosition <<
-                    " of radius " << radius;
         }
         // add light to scene
         else if (tokens.at(0).compare("P") == 0)
@@ -238,8 +219,6 @@ void Scene::readSceneFile(std::string filepath)
             newPlane->setMaterial(material);
             
             this->surfaces.push_back(newPlane);
-            LOG(INFO) << "Added plane at " << pointPosition <<
-                    " with normal " << planeNormal;
         }
         // error handling for unknown line identifier
         else
