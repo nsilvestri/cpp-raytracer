@@ -1,6 +1,6 @@
-# cpp-raytracer: a simple C++ raytracer
+# cpp-raytracer: a simple C++ ray tracer
 
-This program is an object-oriented Ray Tracer written in C++ with SDL2. It can parse simple scenes made of spheres, planes, and point lights from a file and render them, with associated colors in ambient, diffuse, and specular, as well as Blinn-Phong shading.
+This program is an object-oriented ray tracer written in C++ with SDL2. It can parse simple scenes made of spheres, planes, and point lights from a file and render them, with associated colors in ambient, diffuse, and specular, as well as Blinn-Phong shading.
 
 ## Installation
 
@@ -15,11 +15,11 @@ $ make
 
 ## Execution
 ```bash
-$ ./prog03 scene_file output_file
+$ ./raytrace scene_file output_file
 ```
 #### Example
 ```bash
-$ ./prog03 ../scenes/myscene.ppm render.ppm
+$ ./raytrace ../scenes/myscene.ppm render.ppm
 ```
 
 ## Usage
@@ -32,8 +32,6 @@ While running the program:
 There are some Catch2 tests in the `test/` directory. Compile them with the makefile provided. Unit tests are not complete, at all, but they are there.
 
 ## Notes
-
-Code has been tested on cambridge. Tested to work on all scenes in the `scenes/` directory.
 
 I started doxygen/Javadoc style comments for some of it. To be updated later.
 

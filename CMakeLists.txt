@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.11)
-project(prog03)
+project(raytracer)
 
 # CMake 2.8 and 3.1 compatibility
 
@@ -13,7 +13,6 @@ macro(use_cxx11)
   endif ()
 endmacro(use_cxx11)
 use_cxx11()
-
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
