@@ -38,24 +38,12 @@ void Camera::setImagePosition(Vector3D imagePosition)
     this->imagePosition = imagePosition;
 }
 
-/**
- * Defines what is "up" for this camera. This may or may not be perpendicular to
- * w (i.e., parallel to the image plane). This method will recalculate u, v, and
- * w of the image basis when called.
- */
 void Camera::defineUp(Vector3D up)
 {
     this->up = up;
     calculateUVW();
 }
 
-/**
- * Private method to calculate u, v, and w of the orthnormal image basis. Each
- * vector is defined as follows:
- *      w = -1 * (cameraPosition - imagePosition)
- *      u = w x up
- *      v = u x w
- */
 void Camera::calculateUVW()
 {
     // create orthogonal basis
@@ -69,10 +57,6 @@ void Camera::calculateUVW()
     this->v.normalize();
 }
 
-/**
- * Sets the field of view of this camera object.
- * @param fov the new field of view for this camera
- */
 void Camera::setFov(float fov)
 {
     this->fov = fov;
@@ -118,14 +102,6 @@ int Camera::getVerticalResolution() const
     return this->verticalResolution;
 }
 
-/**
- * Calculates the rays to be cast from the camera through the image.
- * 
- * @return A 2D array of Ray3D objects, where the location of each Ray3D in the
- * array corresponds to the pixel in the image. The array returned has the same
- * dimensions as the image, as specified in getHorizontalResolution() and
- * getVerticalResolution().
- */
 Ray3D** Camera::generateRays()
 {
     // calculate corners of image
@@ -169,14 +145,6 @@ Ray3D** Camera::generateRays()
     return rays2d;
 }
 
-/**
- * Calculates the rays to be cast from the camera through the image.
- * 
- * @return A 2D array of Ray3D objects, where the location of each Ray3D in the
- * array corresponds to the pixel in the image. The array returned has the same
- * dimensions as the image, as specified in getHorizontalResolution() and
- * getVerticalResolution().
- */
 Ray3D** Camera::generateOrthographicRays()
 {
     // calculate corners of image
@@ -217,9 +185,6 @@ Ray3D** Camera::generateOrthographicRays()
     return rays2d;
 }
 
-/**
- * Calculates the location of the edges of the image in UVW space.
- */
 void Camera::calculateImagePoints()
 {
     this->top = -(imagePosition - position).length() * tan((fov / 2) * 3.14159265 / 180);
