@@ -1,9 +1,0 @@
-The Blinn-Phong shading model approximates the tendency for light to reflect off
-a surface with respect to the normal, causing specular highlights to appear on
-the surfaces of objects. This effect models the glossiness of a surface. It is
-calculated by comparing the offset between the ray bisecting the angle of the
-light ray (called the "half vector") and view ray with the normal vector. The
-closer the half vector and the normal vector, the more light from the light 
-source that is directly reflected. This can be further modified with a value
-called the Phong exponent, which specifies how quickly the reflective falloff
-is; in other words, how sharp the reflective highlight is.
