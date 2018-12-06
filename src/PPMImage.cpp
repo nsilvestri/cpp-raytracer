@@ -9,11 +9,8 @@
 #include "PPMImage.hpp"
 #include "RGBColor.hpp"
 
-/**
- * Constructor for PPMImage.
- * 
- * @param filepath The location of the PPMImage this object represents.
- */
+/* Constructors */
+
 PPMImage::PPMImage(std::string filepath)
 {
     this->filepath = filepath;
@@ -104,22 +101,14 @@ PPMImage::PPMImage(RGBColor* pixArray, int rows, int cols)
 	this->regenerateData();
 }
 
-/**
- * Destructor for PPMImage.
- */ 
 PPMImage::~PPMImage()
 {
     delete this->data;
 	delete this->pixels;
 }
 
-/**
- * Rescale the image based on the given parameters.
- * 
- * @param gain the gain to adjust the image by
- * @param bias the bias to adjust the image by
- * @param gamma the gamma to adjust the image by
- */ 
+/* Other functions */
+
 void PPMImage::rescale(float gain, float bias, float gamma)
 {
 	for (int r = 0; r < this->rows; r++)
@@ -143,87 +132,6 @@ void PPMImage::rescale(float gain, float bias, float gamma)
 	this->regenerateData();
 }
 
-/**
- * Private helper method that is called after the image is rescaled.
- * Recalculates the data buffer according to the array of RGBColors.
- */
-void PPMImage::regenerateData()
-{
-	this->data = new unsigned char[this->cols * this->rows * 3];
-    std::string newData = "";
-	for (int r = 0; r < this->rows; r++)
-	{
-		for (int c = 0; c < this->cols; c++)
-		{
-			RGBColor& p = this->getPixelAt(r, c);
-			newData += (unsigned char)(p.getR() * 255);
-			newData += (unsigned char)(p.getG() * 255);
-			newData += (unsigned char)(p.getB() * 255);
-		}
-	}
-	memcpy(this->data, newData.c_str(), newData.length());
-}
-
-/**
- * Returns a pointer to the array of raw data for this image.
- * 
- * @return a pointer to the array raw data for this image.
- */
-unsigned char* PPMImage::getData() {
-	return this->data;
-}
-
-/**
- * Return the filepath that this image was read from, as a string.
- * 
- * @return a string representing the filepath that this image was retrived from.
- */
-std::string PPMImage::getFilepath() {
-	return this->filepath;
-}
-
-/**
- * Return the number of rows in this image as an int.
- * 
- * @return the number of rows in this image as an int.
- */
-int PPMImage::getRows() {
-	return this->rows;
-}
-
-/**
- * Return the number of columns in this image as an int.
- * 
- * @return the number of columns in this image as an int.
- */
-int PPMImage::getCols() {
-	return this->cols;
-}
-
-/**
- * Returns the maximum value for a pixel in this image, as an int.
- * 
- * @return the maximum value for a pixel in this image, as an int.
- */
-int PPMImage::getMaxValue() {
-	return this->maxValue;
-}
-
-/**
- * Returns a pointer to the RGBColor object at the given indices in the image.
- *
- * @param row the row of the requested pixel
- * @parram col the column of the requested pixel
- */
-RGBColor& PPMImage::getPixelAt(int row, int col)
-{
-	return this->pixels[row][col];
-}
-
-/**
- * Writes this image to the file specified by the filepath.
- * @param filepath the file to write this image to
- */
 void PPMImage::write(std::string filepath)
 {
 	std::ofstream outputFile;
@@ -290,4 +198,50 @@ void PPMImage::convolve(int** kernel, int kernelRows, int kernelCols)
 			this->getPixelAt(imgR, imgC).setRGB(rAvg, gAvg, bAvg);
 		}
 	}
+}
+
+/* Setters/Getters */
+
+unsigned char* PPMImage::getData() {
+	return this->data;
+}
+
+std::string PPMImage::getFilepath() {
+	return this->filepath;
+}
+
+int PPMImage::getRows() {
+	return this->rows;
+}
+
+int PPMImage::getCols() {
+	return this->cols;
+}
+
+int PPMImage::getMaxValue() {
+	return this->maxValue;
+}
+
+RGBColor& PPMImage::getPixelAt(int row, int col)
+{
+	return this->pixels[row][col];
+}
+
+/* Private Functions */
+
+void PPMImage::regenerateData()
+{
+	this->data = new unsigned char[this->cols * this->rows * 3];
+    std::string newData = "";
+	for (int r = 0; r < this->rows; r++)
+	{
+		for (int c = 0; c < this->cols; c++)
+		{
+			RGBColor& p = this->getPixelAt(r, c);
+			newData += (unsigned char)(p.getR() * 255);
+			newData += (unsigned char)(p.getG() * 255);
+			newData += (unsigned char)(p.getB() * 255);
+		}
+	}
+	memcpy(this->data, newData.c_str(), newData.length());
 }
