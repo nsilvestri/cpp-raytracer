@@ -1,9 +1,3 @@
-/**
- * @file RGBColor.cpp
- * @brief Class representing a single RGB24 pixel.
- * @author Nick Silvestri <nsilvestri@email.arizona.edu>
- */
-
 #include <sstream>
 #include <stdexcept>
 #include <string>

@@ -320,7 +320,8 @@ RGBColor Scene::castRay(Ray3D ray)
             IntersectionRecord temp;
             if (surfaces.at(i)->intersect(temp, rayToLight))
             {
-                if (temp.t > 1e-5 && temp.t < lightDistance)
+                // 8e-3 is the offset to prevent self-intersection; avoids random dark spots
+                if (temp.t > 8e-3 && temp.t < lightDistance)
                 {
                     shadowed = true;
                     break;

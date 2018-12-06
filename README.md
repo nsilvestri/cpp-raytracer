@@ -1,12 +1,12 @@
-# CSC 433 prog03 -- Simple Ray Tracer
+# cpp-raytracer: a simple C++ raytracer
 
 This program is an object-oriented Ray Tracer written in C++ with SDL2. It can parse simple scenes made of spheres, planes, and point lights from a file and render them, with associated colors in ambient, diffuse, and specular, as well as Blinn-Phong shading.
 
 ## Installation
 
 ```bash
-$ git clone https://github.com/UA-CSC433-Fall2018/asgmt03-nsilvestri
-$ cd asgmt03-nsilvestri
+$ git clone https://github.com/nsilvestri/cpp-raytracer
+$ cd cpp-raytracer
 $ mkdir build
 $ cd build
 $ cmake ..
@@ -39,4 +39,4 @@ I started doxygen/Javadoc style comments for some of it. To be updated later.
 
 #### Known Bugs
 
-Shadows are kind of crappy, and there's some weird coloration issues with lights and whatnot. I played around with it for a long, long time and never was able to get it working without messing up something else. The ray tracing part is set to be overhauled.
+Occasional self-intersection issue. Mitigate mostly with a self-intersection offset, but that itself has some side effects.

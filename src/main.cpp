@@ -1,10 +1,3 @@
-/**
- * @file main.cpp
- * @brief CSC 433, prog01: PPM Viewer
- * @author Nick Silvestri <nsilvestri@email.arizona.edu>
- * @date 2018-09-02
- */
-
 // include SDL2 libraries
 #include <SDL.h>
 

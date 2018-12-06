@@ -1,10 +1,3 @@
-/**
- * @file PPMImage.cpp
- * @brief Object to represent a PPM Image in P6 format
- * @author Nick Silvestri <nsilvestri@email.arizona.edu>
- * @date 2018-09-02
- */
-
 #include <fstream>
 #include <string>
 #include <iostream>
