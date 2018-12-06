@@ -2,10 +2,6 @@
 #include "Vector3D.hpp"
 #include "RGBColor.hpp"
 
-/**
- * Default constructor for Light. Initializes the position to the XYZ origin and
- * sets the color to maximum white (255, 255, 255).
- */
 Light::Light()
 {
     this->setPosition(Vector3D(0, 0, 0));
