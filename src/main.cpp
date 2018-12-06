@@ -17,7 +17,7 @@
 /**
  * Log an SDL error with some error message to the output stream of our
  * choice
-
+ *
  * @param os The output stream to write the message to
  * @param msg The error message to write, SDL_GetError() appended to it
  */
@@ -26,15 +26,15 @@ void logSDLError(std::ostream &os, const std::string &msg)
 	os << msg << " error: " << SDL_GetError() << std::endl;
 }
 
-//
-// Draw an SDL_Texture to an SDL_Renderer at position x, y, preserving
-// the texture's width and height
-//
-// \param tex The source texture we want to draw
-// \param ren The renderer we want to draw to
-// \param x The x coordinate to draw to
-// \param y The y coordinate to draw to
-//
+/**
+ * Draw an SDL_Texture to an SDL_Renderer at position x, y, preserving
+ * the texture's width and height
+ *
+ * @param tex The source texture we want to draw
+ * @param ren The renderer we want to draw to
+ * @param x The x coordinate to draw to
+ * @param y The y coordinate to draw to
+ */
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y)
 {
 	//Setup the destination rectangle to be at the position we want
@@ -47,14 +47,14 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y)
 	SDL_RenderCopy(ren, tex, NULL, &dst);
 }
 
-//
-// Main function.  Initializes an SDL window, renderer, and texture,
-// and then goes into a loop to listen to events and draw the texture.
-//
-// \param argc Number of command line arguments
-// \param argv Array of command line arguments
-// \return integer indicating success (0) or failure (nonzero)
-//
+/**
+ * Main function.  Initializes an SDL window, renderer, and texture,
+ * and then goes into a loop to listen to events and draw the texture.
+ *
+ * @param argc Number of command line arguments
+ * @param argv Array of command line arguments
+ * @return integer indicating success (0) or failure (nonzero)
+ */
 int main(int argc, char **argv)
 {
 	std::string inputFile;
@@ -75,14 +75,14 @@ int main(int argc, char **argv)
 	scene.readSceneFile(inputFile);
 	PPMImage image = scene.capture();
 
-	//Start up SDL and make sure it went ok
+	// Start up SDL and make sure it went ok
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		logSDLError(std::cout, "SDL_Init");
 		return 1;
 	}
 
-	//Setup our window and renderer
+	// Setup our window and renderer
 	SDL_Window *window = SDL_CreateWindow("Basic SDL Test", 100, 100, image.getCols(), image.getRows(), SDL_WINDOW_SHOWN);
 	if (window == NULL)
 	{
@@ -100,20 +100,20 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	//The textures we'll be using
+	// The textures we'll be using
 	SDL_Texture *background;
 
-	//Initialize the texture.  SDL_PIXELFORMAT_RGB24 specifies 3 bytes per
-	//pixel, one per color channel
+	// Initialize the texture. SDL_PIXELFORMAT_RGB24 specifies 3 bytes per
+	// pixel, one per color channel
 	background = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STATIC, image.getCols(), image.getRows());
-	//Copy the raw data array into the texture.
+	// Copy the raw data array into the texture.
 	SDL_UpdateTexture(background, NULL, image.getData(), 3 * image.getCols());
 	if (background == NULL)
 	{
 		logSDLError(std::cout, "CreateTextureFromSurface");
 	}
 
-	//Make sure they both loaded ok
+	// Make sure they both loaded ok
 	if (background == NULL)
 	{
 		SDL_DestroyTexture(background);
@@ -123,7 +123,7 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	//Variables used in the rendering loop
+	// Variables used in the rendering loop
 	SDL_Event event;
 	bool quit = false;
 	bool leftMouseButtonDown = false;
@@ -150,14 +150,14 @@ int main(int argc, char **argv)
 
 	while (!quit)
 	{
-		//Grab the time for frame rate computation
+		// Grab the time for frame rate computation
 		const Uint64 start = SDL_GetPerformanceCounter();
 
-		//Clear the screen
+		// Clear the screen
 		SDL_RenderClear(renderer);
 
-		//Event Polling
-		//This while loop responds to mouse and keyboard commands.
+		// Event Polling
+		// This while loop responds to mouse and keyboard commands.
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT)
@@ -177,23 +177,23 @@ int main(int argc, char **argv)
 			}
 		}
 
-		//Update the texture, assuming data has changed.
+		// Update the texture, assuming data has changed.
 		SDL_UpdateTexture(background, NULL, image.getData(), 3 * image.getCols());
-		//display the texture on the screen
+		// display the texture on the screen
 		renderTexture(background, renderer, 0, 0);
-		//Update the screen
+		// Update the screen
 		SDL_RenderPresent(renderer);
 
-		//Display the frame rate to stdout
+		// Display the frame rate to stdout
 		const Uint64 end = SDL_GetPerformanceCounter();
 		const static Uint64 freq = SDL_GetPerformanceFrequency();
 		const double seconds = (end - start) / static_cast<double>(freq);
-		//You may want to comment this line out for debugging purposes
-		//std::cout << "Frame time: " << seconds * 1000.0 << "ms" << std::endl;
+		// You may want to comment this line out for debugging purposes
+		// std::cout << "Frame time: " << seconds * 1000.0 << "ms" << std::endl;
 	}
 
-	//After the loop finishes (when the window is closed, or escape is
-	//pressed, clean up the data that we allocated.
+	// After the loop finishes (when the window is closed, or escape is
+	// pressed, clean up the data that we allocated.
 	SDL_DestroyTexture(background);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
