@@ -2,7 +2,7 @@
 
 This program is an object-oriented ray tracer written in C++ with SDL2. It can parse simple scenes made of spheres, planes, and point lights from a file and render them with Blinn-Phong shading.
 
-![3spheres433.png](https://github.com/nsilvestri/cpp-raytracer/outputs/3spheres433.png "outputs/3spheres433.png")
+![3spheres433.png](https://github.com/nsilvestri/cpp-raytracer/blob/master/outputs/3spheres433.png "outputs/3spheres433.png")
 
 ## Features
 
