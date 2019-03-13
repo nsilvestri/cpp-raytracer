@@ -54,22 +54,11 @@ void Vector3D::setZ(float z)
     this->z = z;
 }
 
-/**
- * Return the length of this Vector3D.
- * 
- * @return the length of this Vector3D.
- */
 float Vector3D::length() const
 {
     return sqrt(pow(this->getX(), 2) + pow(this->getY(), 2) + pow(this->getZ(), 2));
 }
 
-/**
- * Normalizes this vector; i.e. changes the length of this vector to 1 while
- * preserving direction. If the length of this vector is 0, nothing happens to
- * this vector.
- * @return this vector after normalization
- */
 Vector3D Vector3D::normalize()
 {
     float length = this->length();
@@ -79,9 +68,6 @@ Vector3D Vector3D::normalize()
     return *this;
 }
 
-/**
- * Typical assignment operator.
- */
 Vector3D Vector3D::operator=(const Vector3D& rhs) {
   this->x = rhs.getX();
   this->y = rhs.getY();
@@ -90,12 +76,6 @@ Vector3D Vector3D::operator=(const Vector3D& rhs) {
   return *this;
 }
 
-/**
- * Add this vector with another vector.
- * 
- * @param rhs the Vector3D on the right hand side of the + operator.
- * @return the result of the add operator.
- */
 Vector3D Vector3D::operator+(const Vector3D& rhs)
 {
     Vector3D newVec(*this);
@@ -106,12 +86,6 @@ Vector3D Vector3D::operator+(const Vector3D& rhs)
     return newVec;
 }
 
-/**
- * Subtracts this vector with another vector.
- * 
- * @param rhs the Vector3D on the right hand side of the - operator.
- * @return the result of the subtraction operation.
- */
 Vector3D Vector3D::operator-(const Vector3D& rhs)
 {
     Vector3D newVec(*this);
@@ -122,12 +96,6 @@ Vector3D Vector3D::operator-(const Vector3D& rhs)
     return newVec;
 }
 
-/**
- * Scale the vector by the given scalar.
- * 
- * @param scalar the value to scale the vector by
- * @return a new vector equal to the original vector scaled by the scalar
- */
 Vector3D Vector3D::operator*(float scalar)
 {
     Vector3D newVec(*this);
@@ -165,12 +133,6 @@ std::ostream& operator<<(std::ostream& stream, const Vector3D& v)
     return stream << "Vector3D(" << v.getX() << ", " << v.getY() << ", " << v.getZ() << ")";
 }
 
-/**
- * Compute the dot product between this vector and another vector.
- *
- * @param other the other vector to compute the dot product with.
- * @return the result of the dot product
- */
 float Vector3D::dot(Vector3D other)
 {
     return this->getX() * other.getX() 
@@ -178,12 +140,6 @@ float Vector3D::dot(Vector3D other)
                 + this->getZ() * other.getZ();
 }
 
-/**
- * Computer the cross product between this vector and another vector.
- * 
- * @param other the other vector to compute the cross product with.
- * @return the Vector3D representing the result of the cross product.
- */
 Vector3D Vector3D::cross(Vector3D other)
 {
     Vector3D newVec(*this);
