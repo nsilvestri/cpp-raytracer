@@ -16,16 +16,6 @@ use_cxx11()
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-# SDL2
-find_package(SDL2)
-# set(SDL2_LIBRARY /usr/lib/libSDL2.so)
-message(${SDL2_INCLUDE_DIR})
-message(${SDL2_LIBRARY})
-
-include_directories(
-  ${SDL2_INCLUDE_DIR}
-)
-
 # find packages
 
 # includes
@@ -47,6 +37,5 @@ source_group("Source src"     FILES ${SOURCE})
 
 target_link_libraries(
   ${PROJECT_NAME}
-  ${SDL2_LIBRARY}
 )
 
