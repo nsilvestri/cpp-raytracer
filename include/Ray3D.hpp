@@ -62,7 +62,14 @@ class Ray3D
          */
         bool isPointOn(Vector3D point) const;
 
-        
+        /**
+         * Overriden << operator to allow easy printing of this Ray3D object.
+         * 
+         * The returned stream will be in the format of 
+         * `Ray3D(Origin=<origin>, direction=<direction>)`
+         * Where `<origin>` and `<direction>` are the streams returned by the
+         * overridden << operator in Vector3D.
+         */
         friend std::ostream& operator<<(std::ostream &stream, const Ray3D& r);
 };
 
